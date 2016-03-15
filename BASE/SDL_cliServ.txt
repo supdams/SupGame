@@ -1,0 +1,68 @@
+Mise à jour du 1er Aout 2004
+
+Toutes vos remarques et suggestions : jfgout@wanadoo.fr
+
+
+Ce programme est une application client/serveur qui est censée être l'ébauche d'un jeu.
+Pour le moment qu'est-ce qu'il est capable de faire ?
+Réponse : déplacer un petit dessin dans une fenêtre graphique et transmettre ce mouvement 
+par le résaux aux autre joueurs connectés.
+Concrètement vous pourrez déplacer votre petit carré et vous verrez celui du deuxième joueur 
+se déplacer dans la même fenêtre (et le deuxième joueur verra votre petit carré se déplacer).
+
+Attention, ce n'est qu'une ébauche --> c'est succeptible de planter.
+
+
+Les objectifs pour la suite :
+	- remplacer le petit rond rouge par un vrai personnage animé (pas trop dur je pense).
+	- le faire se déplacer dans une vrai carte avec un scrolling et tout ... (un peu plus dur déjà).
+	- gérer des interractions entre joueurs (combats, collisions, échanges, ...)
+	- sauvegarder les données dans une BD ...
+
+Bref, y a encore du boulot !
+
+
+
+1. Compilation :
+---------------
+
+L'archive zip contient l'ensemble du projet Visual C++ pour les deux apllications 
+(client et serveur), normalement ça compile sans pb.
+En cas de difficultées, les points à vérifier :
+	- les fichiers à inlcure "SDL.h", ... sont-t-ils bien dans le répertoire d'include
+	  par défaut de VC++ ?
+
+	- pareil pour les .lib
+
+	- vérifier les options : Multithreaded DLL, ...
+
+Sous Unix je pense que ça doit passer. Un truc à vérifier : qd on déclare un int dans un for 
+-- exemple for(int i=0 ; i<10 ; i++); -- les compilateurs Unix donnent une portée à i qui est 
+limitée au for. Normalement sur ce projet y a pas de soucis de ce coté.
+
+N'oubliez pas de linker sur les libraires SDL et SDL_Net !!!
+
+
+2. Execution :
+--------------
+
+Premièrement : lancer le serveur.
+Le serveur fait qqes affichages du style "connexion de machin" mais c juste des infos de "debbugage".
+
+Deuxièmement : lancer un client.
+Le client vous demande un nom, rentrez en un (pas plus de 12 caractères svp).
+Deuxième étape : rentrer l'ip du serveur sur lequel on veut se connecter (127.0.0.1 pour 
+se connecter à sa propore machine).
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+SI LE DESSIN N'APPARAIT PAS : véifier que l'image "perso.bmp" est bien dans le même répertoire 
+que l'executable ou bien dans le dossier racine du projet si vous lancez le truc depuis Visual.
+C tout con mais desfois on n'y pense pas et on ne comprends pas pq ça ne marche pas...
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+On peut déjà déplacer le petit dessin avec les flèches du clavier.
+
+Il ne reste plus qu'à lancer un deuxième client et à le connecter au même serveur pour voir 
+les deux dessins se déplacer.
+
+Pour quitter un client il suffit d'appuyer sur la touche échap.
