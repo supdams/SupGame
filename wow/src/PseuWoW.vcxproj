@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EFFE60F4-DA39-41E8-9E53-E462000A2D91}</ProjectGuid>
+    <RootNamespace>PseuWoW</RootNamespace>
+    <SccProjectName />
+    <SccLocalPath />
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)/bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)/temp/$(ProjectName)/$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)/bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)/temp/$(ProjectName)/$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>false</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
+      <PrecompiledHeaderOutputFile>.\Release/PseuWoW.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libeay32MT.lib;WS2_32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>C:\Users\user\Desktop\pseuwow-605fbd2df5ce88a2b1e52bc9691792ef7cb8e58b\pseuwow-605fbd2df5ce88a2b1e52bc9691792ef7cb8e58b\src\dep\lib\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AssemblyDebug>
+      </AssemblyDebug>
+      <ProgramDatabaseFile>$(SolutionDir)/temp/$(ProjectName)/Release/PseuWoW.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SetChecksum>true</SetChecksum>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <TypeLibraryName>.\Release/PseuWoW.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libeay32MT.lib;WS2_32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName)_debug.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(SolutionDir)/temp/$(ProjectName)/PseuWoW.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Midl>
+      <TypeLibraryName>.\Debug/PseuWoW.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0407</Culture>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Client\Cli.cpp" />
+    <ClCompile Include="Client\ControlSocket.cpp" />
+    <ClCompile Include="Client\main.cpp" />
+    <ClCompile Include="Client\PseuGUI.cpp" />
+    <ClCompile Include="Client\PseuWoW.cpp" />
+    <ClCompile Include="Client\Realm\RealmSession.cpp" />
+    <ClCompile Include="Client\RemoteController.cpp" />
+    <ClCompile Include="Client\SCPDatabase.cpp" />
+    <ClCompile Include="Client\World\Bag.cpp" />
+    <ClCompile Include="Client\World\CacheHandler.cpp" />
+    <ClCompile Include="Client\World\Channel.cpp" />
+    <ClCompile Include="Client\World\CMSGConstructor.cpp" />
+    <ClCompile Include="Client\World\Corpse.cpp" />
+    <ClCompile Include="Client\World\DynamicObject.cpp" />
+    <ClCompile Include="Client\World\GameObject.cpp" />
+    <ClCompile Include="Client\World\Item.cpp" />
+    <ClCompile Include="Client\World\MovementMgr.cpp" />
+    <ClCompile Include="Client\World\Object.cpp" />
+    <ClCompile Include="Client\World\ObjMgr.cpp" />
+    <ClCompile Include="Client\World\Opcodes.cpp" />
+    <ClCompile Include="Client\World\Player.cpp" />
+    <ClCompile Include="Client\World\Unit.cpp" />
+    <ClCompile Include="Client\World\UpdateData.cpp" />
+    <ClCompile Include="Client\World\UpdateFields.cpp" />
+    <ClCompile Include="Client\World\World.cpp" />
+    <ClCompile Include="Client\World\WorldPacket.cpp" />
+    <ClCompile Include="Client\World\WorldSession.cpp" />
+    <ClCompile Include="Client\World\WorldSocket.cpp" />
+    <ClCompile Include="Client\Realm\RealmSocket.cpp" />
+    <ClCompile Include="shared\Auth\AuthCrypt.cpp" />
+    <ClCompile Include="shared\Auth\BigNumber.cpp" />
+    <ClCompile Include="shared\Auth\Hmac.cpp" />
+    <ClCompile Include="shared\Auth\md5.c" />
+    <ClCompile Include="shared\Auth\SARC4.cpp" />
+    <ClCompile Include="shared\Auth\Sha1.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Client\Cli.h" />
+    <ClInclude Include="Client\ControlSocket.h" />
+    <ClInclude Include="Client\HelperDefs.h" />
+    <ClInclude Include="Client\main.h" />
+    <ClInclude Include="Client\PseuGUI.h" />
+    <ClInclude Include="Client\PseuWoW.h" />
+    <ClInclude Include="Client\Realm\RealmSession.h" />
+    <ClInclude Include="shared\Auth\AuthCrypt.h" />
+    <ClInclude Include="shared\Auth\BigNumber.h" />
+    <ClInclude Include="shared\Auth\Hmac.h" />
+    <ClInclude Include="shared\Auth\md5.h" />
+    <ClInclude Include="shared\Auth\MD5Hash.h" />
+    <ClInclude Include="shared\Auth\SARC4.h" />
+    <ClInclude Include="shared\Auth\Sha1.h" />
+    <CustomBuildStep Include="Client\DefScript\DefScript.h" />
+    <ClInclude Include="Client\RemoteController.h" />
+    <ClInclude Include="Client\resource.h" />
+    <ClInclude Include="Client\SCPDatabase.h" />
+    <ClInclude Include="Client\World\Bag.h" />
+    <ClInclude Include="Client\World\CacheHandler.h" />
+    <ClInclude Include="Client\World\Channel.h" />
+    <ClInclude Include="Client\World\Corpse.h" />
+    <ClInclude Include="Client\World\DynamicObject.h" />
+    <ClInclude Include="Client\World\GameObject.h" />
+    <ClInclude Include="Client\World\Item.h" />
+    <ClInclude Include="Client\World\MovementInfo.h" />
+    <ClInclude Include="Client\World\MovementMgr.h" />
+    <ClInclude Include="Client\World\Object.h" />
+    <ClInclude Include="Client\World\ObjectDefines.h" />
+    <ClInclude Include="Client\World\ObjMgr.h" />
+    <ClInclude Include="Client\World\Opcodes.h" />
+    <ClInclude Include="Client\World\Player.h" />
+    <ClInclude Include="Client\World\SharedDefines.h" />
+    <ClInclude Include="Client\World\Unit.h" />
+    <ClInclude Include="Client\World\UpdateData.h" />
+    <ClInclude Include="Client\World\UpdateFields.h" />
+    <ClInclude Include="Client\World\UpdateMask.h" />
+    <ClInclude Include="Client\World\World.h" />
+    <ClInclude Include="Client\World\WorldPacket.h" />
+    <ClInclude Include="Client\World\WorldSession.h" />
+    <ClInclude Include="Client\World\WorldSocket.h" />
+    <ClInclude Include="Client\Realm\RealmSocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SDL.vcxproj">
+      <Project>{81ce8daf-ebb2-4761-8e45-b71abcca8c68}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="shared.vcxproj">
+      <Project>{f548fc51-24a4-45ff-a381-bebc39f18270}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="zlib.vcxproj">
+      <Project>{8f1dea42-6a5b-4b62-839d-c141a7bfacf2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="zthread.vcxproj">
+      <Project>{262199e8-eedf-4700-a1d1-e9cc901cf480}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
