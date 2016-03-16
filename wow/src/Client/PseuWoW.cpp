@@ -4,15 +4,18 @@
 #include <openssl/rand.h>
 
 #include "ByteBuffer.h"
-
+#include "DefScript/DefScript.h"
+#include "DefScriptInterface.h"
 #include "Auth/BigNumber.h"
-#include "Realm/RealmSession.h"
-#include "World/WorldSession.h"
-#include "World/CacheHandler.h"
+#include "DefScript/DefScript.h"
+#include "RealmSession.h"
+#include "WorldSession.h"
+#include "CacheHandler.h"
 #include "PseuGUI.h"
 #include "RemoteController.h"
 #include "Cli.h"
-
+//#include "GUI/SceneData.h"
+//#include "MemoryDataHolder.h"
 
 
 //###### Start of program code #######
@@ -24,6 +27,8 @@ PseuInstanceRunnable::PseuInstanceRunnable()
 void PseuInstanceRunnable::run(void)
 {
     _i = new PseuInstance(this);
+    _i->SetConfDir("./conf/");
+    _i->SetScpDir("./scripts/");
     if(_i->Init())
     {
         _i->Run();
@@ -47,6 +52,7 @@ PseuInstance::PseuInstance(PseuInstanceRunnable *run)
     _ver_short="A13.51" DEBUG_APPENDIX;
     _wsession=NULL;
     _rsession=NULL;
+    _scp=NULL;
     _conf=NULL;
     _cli=NULL;
     _rmcontrol=NULL;
@@ -74,7 +80,8 @@ PseuInstance::~PseuInstance()
         // delete _cli; // ok this is a little mem leak... can be fixed sometime in future
     }
 
-
+    if(_gui)
+        _gui->Shutdown();
     logdebug("Waiting for GUI to quit...");
     while(_gui)
         Sleep(1);
@@ -89,7 +96,7 @@ PseuInstance::~PseuInstance()
     if(_wsession)
         delete _wsession;
 
-
+    delete _scp;
     delete _conf;
 
     for(uint32 i = 0; i < COND_MAX; i++)
@@ -114,17 +121,32 @@ bool PseuInstance::Init(void)
     srand((unsigned)time(NULL));
     RAND_set_rand_method(RAND_SSLeay()); // init openssl randomizer
 
-
+    _scp=new DefScriptPackage();
+    _scp->SetParentMethod((void*)this);
     _conf=new PseuInstanceConf();
 
-
+    _scp->SetPath(_scpdir);
 
     CreateDir("cache");
 
     dbmgr.AddSearchPath("./cache");
+    dbmgr.AddSearchPath("./data/scp");
     dbmgr.SetCompression(6);
 
+    _scp->variables.Set("@version_short",_ver_short);
+    _scp->variables.Set("@version",_ver);
+    _scp->variables.Set("@inworld","false");
 
+    if(!_scp->LoadScriptFromFile("./_startup.def"))
+    {
+        logerror("Error loading '_startup.def'");
+        SetError();
+    }
+    else if(!_scp->BoolRunScript("_startup",NULL))
+    {
+        logerror("Error executing '_startup.def'");
+        SetError();
+    }
 
     // TODO: find a better loaction where to place this block!
     if(GetConf()->enablegui)
@@ -168,7 +190,41 @@ bool PseuInstance::InitGUI(void)
         return false;
     }
 
-        logerror("GUI: InitGUI fin!");
+    /*if (!GetConf()->enablegui)
+    {
+        logdebug("GUI: Can't start, gui disabled in config");
+        return false;
+    }*/
+
+    uint16 x,y,depth;
+    uint8 driver;
+    bool shadows,vsync,win,usesound;
+
+    driver=(uint8)atoi(GetScripts()->variables.Get("GUI::DRIVER").c_str());
+    vsync=(bool)atoi(GetScripts()->variables.Get("GUI::VSYNC").c_str());
+    depth=(uint8)atoi(GetScripts()->variables.Get("GUI::DEPTH").c_str());
+    x=(uint16)atoi(GetScripts()->variables.Get("GUI::RESX").c_str());
+    y=(uint16)atoi(GetScripts()->variables.Get("GUI::RESY").c_str());
+    win=(bool)atoi(GetScripts()->variables.Get("GUI::WINDOWED").c_str());
+    shadows=(bool)atoi(GetScripts()->variables.Get("GUI::SHADOWS").c_str());
+    usesound=(bool)atoi(GetScripts()->variables.Get("GUI::USESOUND").c_str());
+    log("GUI settings: driver=%u, depth=%u, res=%ux%u, windowed=%u, shadows=%u sound=%u",driver,depth,x,y,win,shadows,usesound);
+    if(x>0 && y>0 && (depth==16 || depth==32) && driver>0 && driver<=5)
+    {
+        PseuGUIRunnable *rgui = new PseuGUIRunnable();
+        _gui = rgui->GetGUI();
+        _gui->SetInstance(this);
+        _gui->SetDriver(driver);
+        _gui->SetResolution(x,y,depth);
+        _gui->SetVSync(vsync);
+        _gui->UseShadows(shadows);
+        _gui->SetWindowed(win);
+        _gui->SetUseSound(usesound);
+        _guithread = new ZThread::Thread(rgui);
+        return true;
+    }
+    else
+        logerror("GUI: incorrect settings!");
     return false;
 }
 
@@ -184,7 +240,7 @@ void PseuInstance::Run(void)
         while(!GetGUI()->IsInitialized())
             Sleep(1); // wait until the gui is ready. it will crash otherwise
         logdebug("GUI: switching to startup display...");
-      //  GetGUI()->SetSceneState(SCENESTATE_GUISTART);
+       // GetGUI()->SetSceneState(SCENESTATE_GUISTART);
     }
     // TODO: as soon as username and password can be inputted into the gui, wait until it was set by user.
 
@@ -203,7 +259,7 @@ void PseuInstance::Run(void)
         }
         else
         {
-          //  GetGUI()->SetSceneState(SCENESTATE_LOGINSCREEN);
+         //   GetGUI()->SetSceneState(SCENESTATE_LOGINSCREEN);
         }
 
         // this is the mainloop
@@ -233,9 +289,14 @@ void PseuInstance::Run(void)
         SaveAllCache();
         //...
     }
-
-
-
+	/*
+    if(GetScripts()->ScriptExists("_onexit"))
+    {
+        CmdSet Set;
+        Set.arg[0] = DefScriptTools::toString(_error);
+        GetScripts()->RunScript("_onexit",&Set);
+    }
+	*/
     if(GetConf()->exitonerror == false && _error)
     {
         log("Exiting on error is disabled, PseuWoW is now IDLE");
@@ -299,12 +360,13 @@ void PseuInstance::Update()
     }
     if((!_rsession) && (!_wsession) && _gui)
     {
-     
+        if(_gui->GetSceneState() != SCENESTATE_LOGINSCREEN)
+        {
             logdetail("Disconnected, switching GUI back to Loginscreen.");
-           // _gui->SetSceneState(SCENESTATE_LOGINSCREEN);
-          //  while(_gui && _gui->GetSceneState() != SCENESTATE_LOGINSCREEN) // .. and wait until scenestate is set
-            //    Sleep(1);
-        
+            _gui->SetSceneState(SCENESTATE_LOGINSCREEN);
+            while(_gui && _gui->GetSceneState() != SCENESTATE_LOGINSCREEN) // .. and wait until scenestate is set
+                Sleep(1);
+        }
     }
 
     // update currently existing/active sessions
@@ -327,15 +389,26 @@ void PseuInstance::Update()
         }
     }
 
-//    GetScripts()->GetEventMgr()->Update();
+    GetScripts()->GetEventMgr()->Update();
 
     this->Sleep(GetConf()->networksleeptime);
 }
 
 void PseuInstance::ProcessCliQueue(void)
 {
-
-
+    std::string cmd;
+    while(_cliQueue.size())
+    {
+        cmd = _cliQueue.next();
+        try
+        {
+            GetScripts()->RunSingleLine(cmd);
+        }
+        catch(...)
+        {
+            logerror("Exception while executing CLI command: \"%s\"",cmd.c_str());
+        }
+    }
 }
 
 void PseuInstance::AddCliCommand(std::string cmd)
@@ -366,8 +439,8 @@ void PseuInstance::DeleteGUI(void)
     _gui = NULL;
     delete _guithread; // since it was allocated with new
     _guithread = NULL;
-//    if(GetScripts()->ScriptExists("_onguiclose"))
-  //      AddCliCommand("_onguiclose"); // since this func is called from another thread, use threadsafe variant via CLI
+    if(GetScripts()->ScriptExists("_onguiclose"))
+        AddCliCommand("_onguiclose"); // since this func is called from another thread, use threadsafe variant via CLI
 
     // if console mode is disabled in windows, closing the gui needs to close the app
 #if PLATFORM == PLATFORM_WIN32 && !defined(_CONSOLE)
@@ -383,8 +456,8 @@ bool PseuInstance::ConnectToRealm(void)
     if(_rsession->MustDie() || !_rsession->SocketGood()) // something failed. it will be deleted in next Update() call
     {
         logerror("PseuInstance: Connecting to Realm failed!");
-  //      if(_gui)
-//            _gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_CONN_FAILED);
+        if(_gui)
+            _gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_CONN_FAILED);
         return false;
     }
 
@@ -411,108 +484,73 @@ PseuInstanceConf::PseuInstanceConf()
     rmcontrolport=0;
 }
 
-void PseuInstanceConf::ApplyFromVarSet()
+void PseuInstanceConf::ApplyFromVarSet(VarSet &v)
 {
-    debug=3;
-    realmlist="mangos";
-    accname="test";
-    accpass="test";
-    exitonerror=0;
-    reconnect=5000;
-    realmport=9090;
-    client=1;
-    clientlang="";
-    realmname="mangos";
-    charname="dams";
-    networksleeptime=1;
-    showopcodes=1;
-    hidefreqopcodes=1;
-    hideDisabledOpcodes=0;
-    enablecli=0;
-    allowgamecmd=0;
-    notifyping=0;
-    showmyopcodes=0;
-    disablespellcheck=0;
-    enablegui=1;
-    rmcontrolport=8010;
-    rmcontrolhost="localhost";
-    rmcontrolpass="blabldddd";
-    useMaps=0;
-    skipaddonchat=0;
-    dumpPackets=1;
-    softquit=0;
-    dataLoaderThreads=2;
-    useMPQ=0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    switch(client)
-    {
-      case CLIENT_CLASSIC_WOW:
-      {
-        clientbuild = 6005;
-        clientversion_string="1.12.2";
-        break;
-      }
-      case CLIENT_TBC:
-      {
-        clientbuild = 8606;
-        clientversion_string="2.4.3";
-        break;
-      }
-      case CLIENT_WOTLK:
-      {
-        clientbuild = 12340;
-        clientversion_string="3.3.5";
-        break;
-      }
-      case CLIENT_CATA:
-      default:
-      {
-        logerror("Unknown client - check conf");
-      }
-    }
+    debug=atoi(v.Get("DEBUG").c_str());
+    realmlist=v.Get("REALMLIST");
+    accname=v.Get("ACCNAME");
+    accpass=v.Get("ACCPASS");
+    exitonerror=(bool)atoi(v.Get("EXITONERROR").c_str());
+    reconnect=atoi(v.Get("RECONNECT").c_str());
+    realmport=atoi(v.Get("REALMPORT").c_str());
+    clientversion_string=v.Get("CLIENTVERSION");
+    clientbuild=atoi(v.Get("CLIENTBUILD").c_str());
+    clientlang=v.Get("CLIENTLANGUAGE");
+    realmname=v.Get("REALMNAME");
+    charname=v.Get("CHARNAME");
+    networksleeptime=atoi(v.Get("NETWORKSLEEPTIME").c_str());
+    showopcodes=atoi(v.Get("SHOWOPCODES").c_str());
+    hidefreqopcodes=(bool)atoi(v.Get("HIDEFREQOPCODES").c_str());
+    hideDisabledOpcodes=(bool)atoi(v.Get("HIDEDISABLEDOPCODES").c_str());
+    enablecli=(bool)atoi(v.Get("ENABLECLI").c_str());
+    allowgamecmd=(bool)atoi(v.Get("ALLOWGAMECMD").c_str());
+    notifyping=(bool)atoi(v.Get("NOTIFYPING").c_str());
+    showmyopcodes=(bool)atoi(v.Get("SHOWMYOPCODES").c_str());
+    disablespellcheck=(bool)atoi(v.Get("DISABLESPELLCHECK").c_str());
+    enablegui=(bool)atoi(v.Get("ENABLEGUI").c_str());
+    rmcontrolport=atoi(v.Get("RMCONTROLPORT").c_str());
+    rmcontrolhost=v.Get("RMCONTROLHOST");
+    rmcontrolpass=v.Get("RMCONTROLPASS");
+    useMaps=(bool)atoi(v.Get("USEMAPS").c_str());
+    skipaddonchat=(bool)atoi(v.Get("SKIPADDONCHAT").c_str());
+    dumpPackets=(uint8)atoi(v.Get("DUMPPACKETS").c_str());
+    softquit=(bool)atoi(v.Get("SOFTQUIT").c_str());
+    dataLoaderThreads=atoi(v.Get("DATALOADERTHREADS").c_str());
 
     // clientversion is a bit more complicated to add
-    std::string opt=clientversion_string + ".";
-    std::string num;
-    uint8 p=0;
-    for(uint8 i=0;i<opt.length();i++)
     {
-        if(!isdigit(opt.at(i)))
+        std::string opt=clientversion_string + ".";
+        std::string num;
+        uint8 p=0;
+        for(uint8 i=0;i<opt.length();i++)
         {
-            clientversion[p]=(unsigned char)atoi(num.c_str());
-            num.clear();
-            p++;
-            if(p>2)
-                break;
-            continue;
+            if(!isdigit(opt.at(i)))
+            {
+                clientversion[p]=(unsigned char)atoi(num.c_str());
+                num.clear();
+                p++;
+                if(p>2)
+                    break;
+                continue;
+            }
+            num+=opt.at(i);
         }
-        num+=opt.at(i);
     }
 
+    // GUI related
+    terrainsectors = atoi(v.Get("GUI::TERRAINSECTORS").c_str());
+    terrainrendersize = atoi(v.Get("GUI::TERRAINRENDERSIZE").c_str());
+    terrainupdatestep = atoi(v.Get("GUI::TERRAINUPDATESTEP").c_str());
+    farclip = atof(v.Get("GUI::FARCLIP").c_str());
+    fogfar = atof(v.Get("GUI::FOGFAR").c_str());
+    fognear = atof(v.Get("GUI::FOGNEAR").c_str());
+    fov = atof(v.Get("GUI::FOV").c_str());
+    masterSoundVolume = atof(v.Get("GUI::MASTERSOUNDVOLUME").c_str());
 
     // cleanups, internal settings, etc.
     log_setloglevel(debug);
-    log_setlogtime(1);
-//    MemoryDataHolder::SetThreadCount(dataLoaderThreads);
-  //  MemoryDataHolder::SetUseMPQ(clientlang);
+    log_setlogtime((bool)atoi(v.Get("LOGTIME").c_str()));
+   // MemoryDataHolder::SetThreadCount(dataLoaderThreads);
 }
 
 

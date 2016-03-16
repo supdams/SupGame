@@ -17,6 +17,9 @@
     <Filter Include="Source Files\AUTH">
       <UniqueIdentifier>{3e31d2e6-cefc-4303-b35f-a2ff82d45085}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\DefScript">
+      <UniqueIdentifier>{70f065be-3095-4ed6-b52c-86b87b56f0c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client\World\Bag.cpp">
@@ -123,6 +126,30 @@
     </ClCompile>
     <ClCompile Include="shared\Auth\Sha1.cpp">
       <Filter>Source Files\AUTH</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScript.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScriptBBFunctions.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScriptFileFunctions.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScriptFunctions.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScriptListFunctions.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DefScriptTools.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\DynamicEvent.cpp">
+      <Filter>Source Files\DefScript</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\DefScript\VarSet.cpp">
+      <Filter>Source Files\DefScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,5 +276,28 @@
     <ClInclude Include="shared\Auth\Sha1.h">
       <Filter>Source Files\AUTH</Filter>
     </ClInclude>
+    <ClInclude Include="Client\DefScript\DefScript.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\DefScript\DefScriptDefines.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\DefScript\DefScriptTools.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\DefScript\DynamicEvent.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\DefScript\TypeStorage.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\DefScript\VarSet.h">
+      <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\DefScript\Makefile.am">
+      <Filter>Source Files\DefScript</Filter>
+    </None>
   </ItemGroup>
 </Project>

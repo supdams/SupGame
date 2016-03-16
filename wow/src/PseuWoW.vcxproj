@@ -45,7 +45,7 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)/bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)/temp/$(ProjectName)/$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,7 +109,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;libeay32MT.lib;WS2_32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;WS2_32.LIB;libeay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)_debug.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -132,6 +132,14 @@
   <ItemGroup>
     <ClCompile Include="Client\Cli.cpp" />
     <ClCompile Include="Client\ControlSocket.cpp" />
+    <ClCompile Include="Client\DefScript\DefScript.cpp" />
+    <ClCompile Include="Client\DefScript\DefScriptBBFunctions.cpp" />
+    <ClCompile Include="Client\DefScript\DefScriptFileFunctions.cpp" />
+    <ClCompile Include="Client\DefScript\DefScriptFunctions.cpp" />
+    <ClCompile Include="Client\DefScript\DefScriptListFunctions.cpp" />
+    <ClCompile Include="Client\DefScript\DefScriptTools.cpp" />
+    <ClCompile Include="Client\DefScript\DynamicEvent.cpp" />
+    <ClCompile Include="Client\DefScript\VarSet.cpp" />
     <ClCompile Include="Client\main.cpp" />
     <ClCompile Include="Client\PseuGUI.cpp" />
     <ClCompile Include="Client\PseuWoW.cpp" />
@@ -169,6 +177,12 @@
   <ItemGroup>
     <ClInclude Include="Client\Cli.h" />
     <ClInclude Include="Client\ControlSocket.h" />
+    <ClInclude Include="Client\DefScript\DefScript.h" />
+    <ClInclude Include="Client\DefScript\DefScriptDefines.h" />
+    <ClInclude Include="Client\DefScript\DefScriptTools.h" />
+    <ClInclude Include="Client\DefScript\DynamicEvent.h" />
+    <ClInclude Include="Client\DefScript\TypeStorage.h" />
+    <ClInclude Include="Client\DefScript\VarSet.h" />
     <ClInclude Include="Client\HelperDefs.h" />
     <ClInclude Include="Client\main.h" />
     <ClInclude Include="Client\PseuGUI.h" />
@@ -227,6 +241,9 @@
       <Project>{262199e8-eedf-4700-a1d1-e9cc901cf480}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\DefScript\Makefile.am" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
