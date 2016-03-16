@@ -282,4 +282,9 @@
       <Filter>Source Files\DefScript</Filter>
     </CustomBuildStep>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\Pseu1.ico">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

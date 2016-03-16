@@ -130,8 +130,7 @@
       <OutputFile>$(OutDir)$(ProjectName)_debug.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <AdditionalLibraryDirectories>$(SolutionDir)\src\dep\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <IgnoreSpecificDefaultLibraries>
-      </IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(SolutionDir)/temp/$(ProjectName)/PseuWoW.pdb</ProgramDatabaseFile>
       <SubSystem>Console</SubSystem>
@@ -295,6 +294,9 @@
       <Project>{262199e8-eedf-4700-a1d1-e9cc901cf480}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Client\Pseu1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
