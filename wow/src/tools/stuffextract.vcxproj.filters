@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{20329ded-4162-4d8d-a3d5-003b643154b7}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="StormLib">
+      <UniqueIdentifier>{27508f74-09c3-4b72-9456-8c5d2375f28f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StormLib\wave">
+      <UniqueIdentifier>{1591eb4d-3a7f-4fbd-ab3a-5a5524d164df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StormLib\bzip2">
+      <UniqueIdentifier>{c4bbb54c-959f-4043-92f3-bdd7081ced6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StormLib\pklib">
+      <UniqueIdentifier>{29568fb7-19b3-4a21-9e2b-43c7d0d54173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StormLib\huffman">
+      <UniqueIdentifier>{3a28c435-9c4c-440e-b0f5-077996fc5357}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stuffextract\DBCFieldData.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\dbcfile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\Locale.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\MPQFile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\MPQHelper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StuffExtract.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\SCommon.h">
+      <Filter>StormLib</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\StormLib.h">
+      <Filter>StormLib</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\StormPort.h">
+      <Filter>StormLib</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\wave\wave.h">
+      <Filter>StormLib\wave</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\bzip2\bzlib.h">
+      <Filter>StormLib\bzip2</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\bzip2\bzlib_private.h">
+      <Filter>StormLib\bzip2</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\pklib\pklib.h">
+      <Filter>StormLib\pklib</Filter>
+    </ClInclude>
+    <ClInclude Include="stuffextract\StormLib\huffman\huff.h">
+      <Filter>StormLib\huffman</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stuffextract\dbcfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\Locale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\MPQFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\MPQHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StuffExtract.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SCommon.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SCompression.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileCompactArchive.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileCreateArchiveEx.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileExtractFile.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileFindFile.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileOpenArchive.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileOpenFileEx.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SFileReadFile.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\SListFile.cpp">
+      <Filter>StormLib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\wave\wave.cpp">
+      <Filter>StormLib\wave</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\blocksort.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\bzlib.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\compress.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\crctable.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\decompress.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\huffman.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\bzip2\randtable.c">
+      <Filter>StormLib\bzip2</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\pklib\crc32_pk.c">
+      <Filter>StormLib\pklib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\pklib\explode.c">
+      <Filter>StormLib\pklib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\pklib\implode.c">
+      <Filter>StormLib\pklib</Filter>
+    </ClCompile>
+    <ClCompile Include="stuffextract\StormLib\huffman\huff.cpp">
+      <Filter>StormLib\huffman</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

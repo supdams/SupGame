@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>StuffExtract</ProjectName>
+    <ProjectGuid>{FBBE6172-CCDE-4ADD-94A6-55C91D700DB6}</ProjectGuid>
+    <RootNamespace>StuffExtract</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.24730.2</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)/bin\</OutDir>
+    <IntDir>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)/bin\</OutDir>
+    <IntDir>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <TypeLibraryName>.\Release/StuffExtract.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>../shared;../dep/include;../dep/include/zlib;StormLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <PrecompiledHeaderOutputFile>.\Release/StuffExtract.pch</PrecompiledHeaderOutputFile>
+      <AssemblerListingLocation>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0000</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;WS2_32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <ShowProgress>NotSet</ShowProgress>
+      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <AssemblyDebug />
+      <ProgramDatabaseFile>$(SolutionDir)/temp/$(ProjectName)/Release/StuffExtract.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SetChecksum>true</SetChecksum>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <TypeLibraryName>.\Debug/StuffExtract.tlb</TypeLibraryName>
+      <HeaderFileName />
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../shared;../dep/include;../dep/include/zlib;StormLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeaderOutputFile />
+      <AssemblerListingLocation>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
+      <ObjectFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
+      <ProgramDataBaseFileName>$(SolutionDir)/temp/$(ProjectName)/$(Configuration)/</ProgramDataBaseFileName>
+      <BrowseInformation>true</BrowseInformation>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0000</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;WS2_32.LIB;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(ProjectName)_debug.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(SolutionDir)/temp/$(ProjectName)/StuffExtract.pdb</ProgramDatabaseFile>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="stuffextract\DBCFieldData.h" />
+    <ClInclude Include="stuffextract\dbcfile.h" />
+    <ClInclude Include="stuffextract\Locale.h" />
+    <ClInclude Include="stuffextract\MPQFile.h" />
+    <ClInclude Include="stuffextract\MPQHelper.h" />
+    <ClInclude Include="stuffextract\StormLib\bzip2\bzlib.h" />
+    <ClInclude Include="stuffextract\StormLib\bzip2\bzlib_private.h" />
+    <ClInclude Include="stuffextract\StormLib\huffman\huff.h" />
+    <ClInclude Include="stuffextract\StormLib\pklib\pklib.h" />
+    <ClInclude Include="stuffextract\StormLib\SCommon.h" />
+    <ClInclude Include="stuffextract\StormLib\StormLib.h" />
+    <ClInclude Include="stuffextract\StormLib\StormPort.h" />
+    <ClInclude Include="stuffextract\StormLib\wave\wave.h" />
+    <ClInclude Include="stuffextract\StuffExtract.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stuffextract\dbcfile.cpp" />
+    <ClCompile Include="stuffextract\Locale.cpp" />
+    <ClCompile Include="stuffextract\MPQFile.cpp" />
+    <ClCompile Include="stuffextract\MPQHelper.cpp" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\blocksort.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\bzlib.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\compress.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\crctable.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\decompress.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\huffman.c" />
+    <ClCompile Include="stuffextract\StormLib\bzip2\randtable.c" />
+    <ClCompile Include="stuffextract\StormLib\huffman\huff.cpp" />
+    <ClCompile Include="stuffextract\StormLib\pklib\crc32_pk.c" />
+    <ClCompile Include="stuffextract\StormLib\pklib\explode.c" />
+    <ClCompile Include="stuffextract\StormLib\pklib\implode.c" />
+    <ClCompile Include="stuffextract\StormLib\SCommon.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SCompression.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileCompactArchive.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileCreateArchiveEx.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileExtractFile.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileFindFile.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileOpenArchive.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileOpenFileEx.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SFileReadFile.cpp" />
+    <ClCompile Include="stuffextract\StormLib\SListFile.cpp" />
+    <ClCompile Include="stuffextract\StormLib\wave\wave.cpp" />
+    <ClCompile Include="stuffextract\StuffExtract.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\shared_VC80.vcxproj">
+      <Project>{f548fc51-24a4-45ff-a381-bebc39f18270}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\zlib_VC80.vcxproj">
+      <Project>{8f1dea42-6a5b-4b62-839d-c141a7bfacf2}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
