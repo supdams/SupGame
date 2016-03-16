@@ -2,18 +2,51 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{ea55cc8f-2cdf-4331-a2d3-0ede5f3f4de5}</UniqueIdentifier>
+      <UniqueIdentifier>{36966828-03ed-40e8-9d36-d8f9ebe0fd77}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Source Files\Network">
-      <UniqueIdentifier>{9bf09e2e-fcf0-4ab6-80a6-a1f311e3403c}</UniqueIdentifier>
+      <UniqueIdentifier>{d5eecb41-8f25-4b69-b562-19c42987ea30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map File Classes">
+      <UniqueIdentifier>{03ba19b7-e811-4416-834e-bc04c95c2a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Auth">
+      <UniqueIdentifier>{782075ab-9c50-4eef-8acb-a9974d52425f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{ccd4ff22-521a-4949-b3fd-b3ee7ba6196e}</UniqueIdentifier>
+      <UniqueIdentifier>{7691a1fc-ca57-4834-b6e3-08d6ad7d2016}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="shared\ByteBuffer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\common.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\DebugStuff.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\log.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\ProgressBar.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\SysDefs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\tools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Widen.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\ZCompressor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="shared\Network\Base64.h">
       <Filter>Source Files\Network</Filter>
     </ClInclude>
@@ -66,46 +99,52 @@
       <Filter>Source Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="shared\ADTFile.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map File Classes</Filter>
     </ClInclude>
     <ClInclude Include="shared\ADTFileStructs.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map File Classes</Filter>
     </ClInclude>
-    <ClInclude Include="shared\ByteBuffer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\common.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\DebugStuff.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\log.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\ProgressBar.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\SysDefs.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\tools.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared\TypeStorage.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="shared\MapTile.h">
+      <Filter>Source Files\Map File Classes</Filter>
     </ClInclude>
     <ClInclude Include="shared\WDTFile.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map File Classes</Filter>
     </ClInclude>
-    <ClInclude Include="shared\Widen.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="shared\Auth\AuthCrypt.h">
+      <Filter>Source Files\Auth</Filter>
     </ClInclude>
-    <ClInclude Include="shared\ZCompressor.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="shared\Auth\BigNumber.h">
+      <Filter>Source Files\Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\Hmac.h">
+      <Filter>Source Files\Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\md5.h">
+      <Filter>Source Files\Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\MD5Hash.h">
+      <Filter>Source Files\Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\Sha1.h">
+      <Filter>Source Files\Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\SARC4.h">
+      <Filter>Source Files\Auth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="shared\log.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\ProgressBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\tools.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\ZCompressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="shared\Network\Base64.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -152,27 +191,31 @@
       <Filter>Source Files\Network</Filter>
     </ClCompile>
     <ClCompile Include="shared\ADTFile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map File Classes</Filter>
     </ClCompile>
-    <ClCompile Include="shared\log.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shared\ProgressBar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="shared\tools.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="shared\MapTile.cpp">
+      <Filter>Source Files\Map File Classes</Filter>
     </ClCompile>
     <ClCompile Include="shared\WDTFile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Map File Classes</Filter>
     </ClCompile>
-    <ClCompile Include="shared\ZCompressor.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="shared\Auth\AuthCrypt.cpp">
+      <Filter>Source Files\Auth</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shared\CMakeLists.txt">
-      <Filter>Source Files</Filter>
-    </None>
+    <ClCompile Include="shared\Auth\BigNumber.cpp">
+      <Filter>Source Files\Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\Hmac.cpp">
+      <Filter>Source Files\Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\md5.c">
+      <Filter>Source Files\Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\Sha1.cpp">
+      <Filter>Source Files\Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\SARC4.cpp">
+      <Filter>Source Files\Auth</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

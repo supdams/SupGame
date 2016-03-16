@@ -48,10 +48,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>dep/include;Client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dep/include;Client;shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\Debug/PseuWoW_Controller.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(SolutionDir)temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(SolutionDir)temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
@@ -60,6 +61,10 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>winmm.lib;libeay32MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>dep/lib/static;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <Midl>
       <TypeLibraryName>.\Debug/PseuWoW_Controller.tlb</TypeLibraryName>
       <HeaderFileName>
@@ -75,13 +80,14 @@
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>dep/include;Client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dep/include;Client;shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FunctionLevelLinking>false</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeaderOutputFile>.\Release/PseuWoW_Controller.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>$(SolutionDir)temp/$(ProjectName)/$(Configuration)/</AssemblerListingLocation>
       <ObjectFileName>$(SolutionDir)temp/$(ProjectName)/$(Configuration)/</ObjectFileName>
@@ -89,6 +95,10 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
+    <Lib>
+      <AdditionalDependencies>winmm.lib;libeay32MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>dep/lib/static;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
     <Midl>
       <TypeLibraryName>.\Release/PseuWoW_Controller.tlb</TypeLibraryName>
       <HeaderFileName>
@@ -100,12 +110,16 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="shared\ADTFile.h" />
-    <ClInclude Include="shared\ADTFileStructs.h" />
+    <ClInclude Include="shared\Auth\SARC4.h" />
     <ClInclude Include="shared\ByteBuffer.h" />
     <ClInclude Include="shared\common.h" />
     <ClInclude Include="shared\DebugStuff.h" />
     <ClInclude Include="shared\log.h" />
+    <ClInclude Include="shared\ProgressBar.h" />
+    <ClInclude Include="shared\SysDefs.h" />
+    <ClInclude Include="shared\tools.h" />
+    <ClInclude Include="shared\Widen.h" />
+    <ClInclude Include="shared\ZCompressor.h" />
     <ClInclude Include="shared\Network\Base64.h" />
     <ClInclude Include="shared\Network\CircularBuffer.h" />
     <ClInclude Include="shared\Network\ListenSocket.h" />
@@ -123,22 +137,25 @@
     <ClInclude Include="shared\Network\Thread.h" />
     <ClInclude Include="shared\Network\UdpSocket.h" />
     <ClInclude Include="shared\Network\Utility.h" />
-    <ClInclude Include="shared\ProgressBar.h" />
-    <ClInclude Include="shared\SysDefs.h" />
-    <ClInclude Include="shared\tools.h" />
-    <ClInclude Include="shared\TypeStorage.h" />
+    <ClInclude Include="shared\ADTFile.h" />
+    <ClInclude Include="shared\ADTFileStructs.h" />
+    <ClInclude Include="shared\MapTile.h" />
     <ClInclude Include="shared\WDTFile.h" />
-    <ClInclude Include="shared\Widen.h" />
-    <ClInclude Include="shared\ZCompressor.h" />
+    <ClInclude Include="shared\Auth\AuthCrypt.h" />
+    <ClInclude Include="shared\Auth\BigNumber.h" />
+    <ClInclude Include="shared\Auth\Hmac.h" />
+    <ClInclude Include="shared\Auth\md5.h" />
+    <ClInclude Include="shared\Auth\MD5Hash.h" />
+    <ClInclude Include="shared\Auth\Sha1.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="shared\ADTFile.cpp" />
+    <ClCompile Include="shared\Auth\SARC4.cpp" />
     <ClCompile Include="shared\log.cpp" />
+    <ClCompile Include="shared\ProgressBar.cpp" />
+    <ClCompile Include="shared\tools.cpp" />
+    <ClCompile Include="shared\ZCompressor.cpp" />
     <ClCompile Include="shared\Network\Base64.cpp" />
-    <ClCompile Include="shared\Network\CircularBuffer.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="shared\Network\CircularBuffer.cpp" />
     <ClCompile Include="shared\Network\Parse.cpp" />
     <ClCompile Include="shared\Network\PoolSocket.cpp" />
     <ClCompile Include="shared\Network\ResolvServer.cpp" />
@@ -152,10 +169,14 @@
     <ClCompile Include="shared\Network\Thread.cpp" />
     <ClCompile Include="shared\Network\UdpSocket.cpp" />
     <ClCompile Include="shared\Network\Utility.cpp" />
-    <ClCompile Include="shared\ProgressBar.cpp" />
-    <ClCompile Include="shared\tools.cpp" />
+    <ClCompile Include="shared\ADTFile.cpp" />
+    <ClCompile Include="shared\MapTile.cpp" />
     <ClCompile Include="shared\WDTFile.cpp" />
-    <ClCompile Include="shared\ZCompressor.cpp" />
+    <ClCompile Include="shared\Auth\AuthCrypt.cpp" />
+    <ClCompile Include="shared\Auth\BigNumber.cpp" />
+    <ClCompile Include="shared\Auth\Hmac.cpp" />
+    <ClCompile Include="shared\Auth\md5.c" />
+    <ClCompile Include="shared\Auth\Sha1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="zlib.vcxproj">
@@ -166,9 +187,6 @@
       <Project>{262199e8-eedf-4700-a1d1-e9cc901cf480}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shared\CMakeLists.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

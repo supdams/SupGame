@@ -4,7 +4,7 @@ Bag::Bag() : Item()
 {
     _type |= TYPE_CONTAINER;
     _typeid = TYPEID_CONTAINER;
-    _valuescount = Object::maxvalues[_typeid];
+    _valuescount = CONTAINER_END;
     _slot = 0;
 }
 

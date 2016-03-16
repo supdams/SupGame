@@ -5,7 +5,7 @@ Unit::Unit() : WorldObject()
 {
     _type |= TYPE_UNIT;
     _typeid = TYPEID_UNIT;
-    _valuescount = Object::maxvalues[_typeid];
+    _valuescount = UNIT_END;
 }
 
 void Unit::Create(uint64 guid)

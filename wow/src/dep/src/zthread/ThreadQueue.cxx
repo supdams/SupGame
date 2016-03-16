@@ -29,7 +29,6 @@
 #include <deque>
 
 #include <iterator>
-
 namespace ZThread {
   
   ThreadQueue::ThreadQueue() 

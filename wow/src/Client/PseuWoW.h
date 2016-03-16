@@ -6,10 +6,10 @@
 #include "HelperDefs.h"
 #include "log.h"
 #include "Auth/BigNumber.h"
-//#include "DefScript/DefScript.h"
+#include "DefScript/DefScript.h"
 #include "Network/SocketHandler.h"
 #include "SCPDatabase.h"
-#include "PseuGUI.h"
+#include "GUI/PseuGUI.h"
 
 class RealmSession;
 class WorldSession;
@@ -29,14 +29,6 @@ enum InstanceConditions
     COND_MAX
 };
 
-enum Client
-{
-    CLIENT_UNKNOWN,
-    CLIENT_CLASSIC_WOW,
-    CLIENT_TBC,
-    CLIENT_WOTLK,
-    CLIENT_CATA
-};
 
 class PseuInstanceConf
 {
@@ -44,7 +36,7 @@ class PseuInstanceConf
 
     PseuInstanceConf();
     ~PseuInstanceConf();
-    void ApplyFromVarSet();
+    void ApplyFromVarSet(VarSet &v);
 
 
     uint8 debug;
@@ -55,7 +47,6 @@ class PseuInstanceConf
     uint32 reconnect;
     uint16 realmport;
     uint16 worldport;
-    uint8 client;
     uint8 clientversion[3];
     std::string clientversion_string;
     uint16 clientbuild;
@@ -80,7 +71,6 @@ class PseuInstanceConf
     uint8 dumpPackets;
     bool softquit;
     uint8 dataLoaderThreads;
-    bool useMPQ;
 
     // gui related
     bool enablegui;
@@ -110,7 +100,7 @@ public:
     inline WorldSession *GetWSession(void) { return _wsession; }
     inline RealmSession *GetRSession(void) { return _rsession; }
     inline PseuInstanceConf *GetConf(void) { return _conf; }
-//    inline DefScriptPackage *GetScripts(void) { return _scp; }
+    inline DefScriptPackage *GetScripts(void) { return _scp; }
     inline PseuInstanceRunnable *GetRunnable(void) { return _runnable; }
     inline PseuGUI *GetGUI(void) { return _gui; }
     void DeleteGUI(void);
@@ -149,7 +139,7 @@ private:
     RealmSession *_rsession;
     WorldSession *_wsession;
     PseuInstanceConf *_conf;
-//    DefScriptPackage *_scp;
+    DefScriptPackage *_scp;
     std::string _confdir,_scpdir; // _scpdir is the scripts dir, and NOT where SCP files are stored!!
     bool _initialized;
     bool _stop,_fastquit;

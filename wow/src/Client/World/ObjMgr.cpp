@@ -2,7 +2,7 @@
 #include "log.h"
 #include "PseuWoW.h"
 #include "ObjMgr.h"
-#include "PseuGUI.h"
+#include "GUI/PseuGUI.h"
 
 ObjMgr::ObjMgr()
 {
@@ -38,20 +38,25 @@ void ObjMgr::RemoveAll(void)
     {
         Remove(_obj.begin()->first, true);
     }
-
+    if(PseuGUI *gui = _instance->GetGUI())
+    {
+        // necessary that the pending-to-delete GUIDs just stored by deleting the objects above will be cleared
+        // so that newly added DrawObjects with uncleared pending-to-delete GUIDs will not get deleted again immediately.
+        gui->NotifyAllObjectsDeletion();
+    }
 }
 
 void ObjMgr::Remove(uint64 guid, bool del)
 {
     Object *o = GetObj(guid, true); // here get also depleted objs and delete if necessary
-    if(o)
+    if(o) 
     {
         o->_SetDepleted();
         if(!del)
-            logdebug("ObjMgr: "I64FMT" '%s' -> depleted.",guid,o->GetName().c_str());
-      //  PseuGUI *gui = _instance->GetGUI();
-    //    if(gui)
-      //      gui->NotifyObjectDeletion(guid); // we have a gui, which must delete linked DrawObject
+            logdebug("ObjMgr: "I64FMT" '%s' -> depleted.",guid,o->GetName().c_str()); 
+        PseuGUI *gui = _instance->GetGUI();
+      //   if(gui)
+      //       gui->NotifyObjectDeletion(guid); // we have a gui, which must delete linked DrawObject
         if(del)
         {
             _obj.erase(guid); // now delete the obj from the mgr
@@ -62,8 +67,8 @@ void ObjMgr::Remove(uint64 guid, bool del)
     {
         _obj.erase(guid); // we can safely erase an object that does not exist
                           // - if we reach this point there was a bug anyway
-        logcustom(2,LRED,"ObjMgr::Remove("I64FMT") - not existing",guid);
-    }
+        logcustom(2,LRED,"ObjMgr::Remove("I64FMT") - not existing",guid); 
+    }        
 }
 
 // -- Object part --
@@ -79,8 +84,8 @@ void ObjMgr::Add(Object *o)
         delete ox; // only delete pointer, everything else is already reserved for the just added new obj
     }
 
- //   if(PseuGUI *gui = _instance->GetGUI())
-   //     gui->NotifyObjectCreation(o);
+    if(PseuGUI *gui = _instance->GetGUI())
+        gui->NotifyObjectCreation(o);
 }
 
 Object *ObjMgr::GetObj(uint64 guid, bool also_depleted)
@@ -122,7 +127,7 @@ void ObjMgr::ReNotifyGUI(void)
         Object *o = it->second;
         if(o->_IsDepleted())
             continue;
-//        gui->NotifyObjectCreation(o);
+        gui->NotifyObjectCreation(o);
     }
 }
 

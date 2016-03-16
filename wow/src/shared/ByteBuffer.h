@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright (C) 2005,2006 MaNGOS <http://www.mangosproject.org/>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -272,25 +272,6 @@ class ByteBuffer
             if(buffer.size()) append(buffer.contents(),buffer.size());
         }
 
-        uint64 readPackGUID()
-        {
-            uint64 guid = 0;
-            uint8 guidmark = 0;
-            (*this) >> guidmark;
-
-            for(int i = 0; i < 8; ++i)
-            {
-                if(guidmark & (uint8(1) << i))
-                {
-                    uint8 bit;
-                    (*this) >> bit;
-                    guid |= (uint64(bit) << (i * 8));
-                }
-            }
-
-            return guid;
-        }
-
         void appendPackGUID(uint64 guid)
         {
             if (_storage.size() < _wpos + sizeof(guid) + 1)
@@ -309,14 +290,14 @@ class ByteBuffer
                 guid >>= 8;
             }
         }
-
+        
         void put(size_t pos, const uint8 *src, size_t cnt)
         {
             memcpy(&_storage[pos], src, cnt);
         }
         void print_storage()
         {
-            printf("STORAGE_SIZE: %lu\n", size() );
+            printf("STORAGE_SIZE: %u\n", size() );
             for(uint32 i = 0; i < size(); i++)
                 printf("%u - ", read<uint8>(i) );
             printf("\n");
@@ -324,7 +305,7 @@ class ByteBuffer
 
         void textlike()
         {
-            printf("STORAGE_SIZE: %lu\n", size() );
+            printf("STORAGE_SIZE: %u\n", size() );
             for(uint32 i = 0; i < size(); i++)
                 printf("%c", read<uint8>(i) );
             printf("\n");
@@ -333,7 +314,7 @@ class ByteBuffer
         void hexlike()
         {
             uint32 j = 1, k = 1;
-            printf("STORAGE_SIZE: %lu\n", size() );
+            printf("STORAGE_SIZE: %u\n", size() );
             for(uint32 i = 0; i < size(); i++)
             {
                 if ((i == (j*8)) && ((i != (k*16))))
@@ -378,12 +359,12 @@ class ByteBuffer
             printf("\n");
 
         }
-
+        
         void print(void)
         {
             uint32 line = 1;
             uint32 countpos = 0;
-            printf("STORAGE_SIZE: %lu\n", size() );
+            printf("STORAGE_SIZE: %u\n", size() );
             printf("|------------------------------------------------|----------------|\r\n");
             printf("|00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F |0123456789ABCDEF|\r\n");
             printf("|------------------------------------------------|----------------|\r\n");

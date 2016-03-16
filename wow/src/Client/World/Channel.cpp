@@ -81,12 +81,9 @@ void Channel::Join(std::string channel, std::string password)
 	// Send join channel request
 	WorldPacket worldPacket;
 	worldPacket.SetOpcode(CMSG_JOIN_CHANNEL);
-    if(_worldSession->GetInstance()->GetConf()->client > CLIENT_CLASSIC_WOW)
-    {
-      worldPacket << (uint32)0; // new since 2.0.x, some channel ID? server answers us with that number later if channel joined
-      worldPacket << (uint8)0;  // unk
-      worldPacket << (uint8)0;  // unk, new since 2.2.x
-    }
+	worldPacket << (uint32)0; // new since 2.0.x, some channel ID? server answers us with that number later if channel joined
+    worldPacket << (uint8)0;  // unk
+    worldPacket << (uint8)0;  // unk, new since 2.2.x
 	worldPacket << channel << password;
 	_worldSession->SendWorldPacket(worldPacket);
 }
@@ -217,6 +214,60 @@ void Channel::RequestList(std::string ch)
 	_worldSession->SendWorldPacket(wp);
 }
 
+void Channel::HandleListRequest(WorldPacket& recvPacket)
+{
+	ChannelPlayerList cpl;
+	uint8 unk;
+	uint32 size;
+	uint64 guid;
+	uint8 mode, flags; // mode: player flags; flags: channel flags
+    std::string name;
+    bool must_delay = false;
+
+	recvPacket >> unk >> name >> flags >> size;
+
+	for(uint32 i = 0; i < size; i++)
+	{
+		recvPacket >> guid >> mode;
+        // all player names in this packet must be known before we can continue
+        if(_worldSession->GetOrRequestPlayerName(guid).empty())
+        {
+            must_delay = true;
+        }
+		cpl[guid] = mode;
+	}
+    if(must_delay)
+    {
+        _worldSession->_DelayWorldPacket(recvPacket, uint32(_worldSession->GetLagMS() * 1.2f));
+        return;
+    }
+
+    // store list of GUIDs in: @ChannelList - see below
+    DefList *l = _worldSession->GetInstance()->GetScripts()->lists.Get("@ChannelList");
+    l->clear();
+
+	std::string pname;
+	bool muted,mod;
+	logcustom(0,WHITE,"Player channel list, %u players:",size);
+	for(ChannelPlayerList::iterator i = cpl.begin(); i != cpl.end(); i++)
+	{
+		pname = _worldSession->GetOrRequestPlayerName(i->first); // all names should be known now
+		mode = i->second;
+		if(pname.empty())
+            pname = "<unknown>";
+
+		muted = mode & MEMBER_FLAG_MUTED;
+		mod = mode & MEMBER_FLAG_MODERATOR;
+
+		while(pname.length() < MAX_PLAYERNAME_LENGTH)
+			pname += " "; // for better formatting
+
+		logcustom(0,WHITE,"%s ["I64FMT"] %s %s",pname.c_str(),i->first,muted?"(muted)":"",mod?"(moderator)":"");
+
+        // DefScript binding
+        l->push_back(DefScriptTools::toString(guid));
+	}
+}
 
 
 

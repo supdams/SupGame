@@ -5,6 +5,7 @@
 #include "Opcodes.h"
 #include "SharedDefines.h"
 #include "Player.h"
+#include "DefScript/DefScript.h"
 #include "WorldSession.h"
 
 
@@ -12,7 +13,7 @@ Player::Player() : Unit()
 {
     _type |= TYPE_PLAYER;
     _typeid = TYPEID_PLAYER;
-    _valuescount = Object::maxvalues[_typeid];
+    _valuescount = PLAYER_END;
 }
 
 void Player::Create(uint64 guid)

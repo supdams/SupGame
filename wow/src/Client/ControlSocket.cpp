@@ -13,7 +13,7 @@ ControlSocket::ControlSocket(SocketHandler& h) : TcpSocket(h)
 void ControlSocket::OnAccept(void)
 {
     logdetail("ControlSocket: Incoming connection from %s:%u [host:%s]",GetRemoteAddress().c_str(),GetRemotePort(),GetRemoteHostname().c_str());
-
+   
     // must perform some crappy ptr conversion here, doesnt want to typecast SocketHandler -> ControlSocketHandler directly
     SocketHandler& hnd = Handler();
     ControlSocketHandler *chnd = static_cast<ControlSocketHandler*>(&hnd);
@@ -29,11 +29,11 @@ void ControlSocket::OnAccept(void)
         return;
     }
 
-//    SendTelnetText(_instance->GetScripts()->variables.Get("@version"));
+    SendTelnetText(_instance->GetScripts()->variables.Get("@version"));
     if(_instance->GetConf()->rmcontrolpass.size())
     {
         SendTelnetText("Authentication?");
-    }
+    } 
 
     _ok = true;
 }
@@ -73,7 +73,7 @@ void ControlSocket::OnRead(void)
             }
             else if(buf[i] == 10 || buf[i] == 13 || buf[i] == 0) // newline or \0 char
             {
-                if(_str.length() && _instance)
+                if(_str.length() && _instance && _instance->GetScripts())
                 {
                     HandleString(_str);
                 }
@@ -98,7 +98,17 @@ void ControlSocket::SendTelnetText(std::string s)
 
 void ControlSocket::_Execute(std::string s)
 {
-
+    DefReturnResult r = _instance->GetScripts()->RunSingleLine(s);
+    if(r.ok)
+    {
+        std::stringstream ss;
+        ss << "+OK";
+        if(r.ret.size())
+            ss << ". r: [" << r.ret << "]";
+        SendTelnetText(ss.str());
+    }
+    else
+        SendTelnetText("+ERR");
 }
 
 void ControlSocket::HandleString(std::string s)

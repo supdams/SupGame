@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright (C) 2005,2006 MaNGOS <http://www.mangosproject.org/>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 #ifndef _AUTH_BIGNUMBER_H
 #define _AUTH_BIGNUMBER_H
 
-#include "../common.h"
+#include "common.h"
 
 struct bignum_st;
 

@@ -2,6 +2,7 @@
 #include "ZCompressor.h"
 #include "WorldSession.h"
 #include "UpdateData.h"
+#include "UpdateFields.h"
 #include "Object.h"
 #include "Unit.h"
 #include "Bag.h"
@@ -10,7 +11,6 @@
 #include "DynamicObject.h"
 #include "ObjMgr.h"
 #include "UpdateMask.h"
-#include "MovementInfo.h"
 
 
 void WorldSession::_HandleCompressedUpdateObjectOpcode(WorldPacket& recvPacket)
@@ -37,13 +37,11 @@ void WorldSession::_HandleCompressedUpdateObjectOpcode(WorldPacket& recvPacket)
 void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
 {
     uint8 utype;
-    uint8 hasTransport;
+    //uint8 hasTransport;
     uint32 usize, ublocks, readblocks=0;
     uint64 uguid;
     recvPacket >> ublocks; // >> hasTransport;
-    if(GetInstance()->GetConf()->client <= CLIENT_TBC)
-      recvPacket >> hasTransport;
-
+    //logdev("UpdateObject: blocks = %u, hasTransport = %u", ublocks, hasTransport);
     logdev("UpdateObject: blocks = %u", ublocks);
     while((recvPacket.rpos() < recvPacket.size())&& (readblocks < ublocks))
     {
@@ -52,7 +50,7 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
         {
             case UPDATETYPE_VALUES:
             {
-                uguid = recvPacket.readPackGUID();
+                uguid = recvPacket.GetPackedGuid();
                 _ValuesUpdate(uguid,recvPacket);
             }
             break;
@@ -78,7 +76,7 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
             case UPDATETYPE_CREATE_OBJECT2: // will be sent when our very own character is created
             case UPDATETYPE_CREATE_OBJECT: // will be sent on any other object creation
             {
-                uguid = recvPacket.readPackGUID();
+                uguid = recvPacket.GetPackedGuid();
                 uint8 objtypeid;
                 recvPacket >> objtypeid;
                 logdebug("Create Object type %u with guid "I64FMT,objtypeid,uguid);
@@ -113,7 +111,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             Item *item = new Item();
                             item->Create(uguid);
                             objmgr.Add(item);
-                            logdebug("Created Item with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_CONTAINER:
@@ -121,7 +118,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             Bag *bag = new Bag();
                             bag->Create(uguid);
                             objmgr.Add(bag);
-                            logdebug("Created Bag with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_UNIT:
@@ -129,7 +125,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             Unit *unit = new Unit();
                             unit->Create(uguid);
                             objmgr.Add(unit);
-                            logdebug("Created Unit with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_PLAYER:
@@ -139,7 +134,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             Player *player = new Player();
                             player->Create(uguid);
                             objmgr.Add(player);
-                            logdebug("Created Player with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_GAMEOBJECT:
@@ -147,7 +141,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             GameObject *go = new GameObject();
                             go->Create(uguid);
                             objmgr.Add(go);
-                            logdebug("Created GO with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_CORPSE:
@@ -155,7 +148,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             Corpse *corpse = new Corpse();
                             corpse->Create(uguid);
                             objmgr.Add(corpse);
-                            logdebug("Created Corpse with guid "I64FMT,uguid);
                             break;
                         }
                     case TYPEID_DYNAMICOBJECT:
@@ -163,7 +155,6 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                             DynamicObject *dobj = new DynamicObject();
                             dobj->Create(uguid);
                             objmgr.Add(dobj);
-                            logdebug("Created DynObj with guid "I64FMT,uguid);
                             break;
                         }
                     }
@@ -180,8 +171,14 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
                 _QueryObjectInfo(uguid);
 
 
-       
-
+                // call script "_OnObjectCreate"
+                if(GetInstance()->GetScripts()->ScriptExists("_onobjectcreate"))
+                {
+                    CmdSet Set;
+                    Set.defaultarg = toString(uguid);
+                    Set.arg[0] = toString(objtypeid);
+                    GetInstance()->GetScripts()->RunScript("_onobjectcreate", &Set);
+                }
 
                 // if our own character got finally created, we have successfully entered the world,
                 // and should have gotten all info about our char already.
@@ -191,23 +188,23 @@ void WorldSession::_HandleUpdateObjectOpcode(WorldPacket& recvPacket)
             case UPDATETYPE_OUT_OF_RANGE_OBJECTS:
             {
                 recvPacket >> usize;
-                for(uint32 i=0;i<usize;i++)
+                for(uint16 i=0;i<usize;i++)
                 {
-                    uguid = recvPacket.readPackGUID(); // not 100% sure if this is correct
+                    uguid = recvPacket.GetPackedGuid(); // not 100% sure if this is correct
                     logdebug("GUID "I64FMT" out of range",uguid);
 
-//                     // call script just before object removal
-//                     if(GetInstance()->GetScripts()->ScriptExists("_onobjectdelete"))
-//                     {
-//                         Object *del_obj = objmgr.GetObj(uguid);
-//                         CmdSet Set;
-//                         Set.defaultarg = toString(uguid);
-//                         Set.arg[0] = del_obj ? toString(del_obj->GetTypeId()) : "";
-//                         Set.arg[1] = "true"; // out of range = true
-//                         GetInstance()->GetScripts()->RunScript("_onobjectdelete", &Set);
-//                     }
-//
-//                     objmgr.Remove(uguid, false);
+                    // call script just before object removal
+                    if(GetInstance()->GetScripts()->ScriptExists("_onobjectdelete"))
+                    {
+                        Object *del_obj = objmgr.GetObj(uguid);
+                        CmdSet Set;
+                        Set.defaultarg = toString(uguid);
+                        Set.arg[0] = del_obj ? toString(del_obj->GetTypeId()) : "";
+                        Set.arg[1] = "true"; // out of range = true
+                        GetInstance()->GetScripts()->RunScript("_onobjectdelete", &Set);
+                    }
+
+                    objmgr.Remove(uguid, false);
                 }
             }
             break;
@@ -239,12 +236,9 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
 {
     MovementInfo mi; // TODO: use a reference to a MovementInfo in Unit/Player class once implemented
     uint16 flags;
-    uint8 flags_6005;
     // uint64 fullguid; // see below
-    float speedWalk =0, speedRun =0, speedSwimBack =0, speedSwim =0, speedWalkBack =0, speedTurn =0, speedFly =0, speedFlyBack =0, speedPitchRate =0;
+    float speedWalk, speedRun, speedSwimBack, speedSwim, speedWalkBack, speedTurn, speedFly, speedFlyBack, speedPitchRate;
     uint32 unk32;
-
-    uint16 client = GetInstance()->GetConf()->client;
 
     Object *obj = (Object*)objmgr.GetObj(uguid, true); // also depleted objects
     Unit *u = NULL;
@@ -260,55 +254,57 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
         logerror("MovementUpdate for unknown object "I64FMT" typeid=%u",uguid,objtypeid);
     }
 
-    if(client > CLIENT_TBC)
-      recvPacket >> flags;
-    else
-    {
-      recvPacket >> flags_6005;
-      flags = flags_6005;
-    }
+    recvPacket >> flags;
+
     mi.flags = 0; // not sure if its correct to set it to 0 (needs some starting flag?)
     if(flags & UPDATEFLAG_LIVING)
     {
-        recvPacket >> mi;
+        recvPacket >> mi.flags >> mi.unkFlags >> mi.time;
 
-        logdev("MovementUpdate: TypeID=%u GUID="I64FMT" pObj=%X flags=%x mi.flags=%x",objtypeid,uguid,obj,flags,mi.flags);
-        logdev("FLOATS: x=%f y=%f z=%f o=%f",mi.pos.x, mi.pos.y, mi.pos.z ,mi.pos.o);
+        logdev("MovementUpdate: TypeID=%u GUID="I64FMT" pObj=%X flags=%u mi.flags=%u",objtypeid,uguid,obj,flags,mi.flags);
+
+        recvPacket >> mi.x >> mi.y >> mi.z >> mi.o;
+        logdev("FLOATS: x=%f y=%f z=%f o=%f",mi.x, mi.y, mi.z ,mi.o);
         if(obj && obj->IsWorldObject())
-            ((WorldObject*)obj)->SetPosition(mi.pos.x, mi.pos.y, mi.pos.z, mi.pos.o);
+            ((WorldObject*)obj)->SetPosition(mi.x, mi.y, mi.z, mi.o);
 
         if(mi.flags & MOVEMENTFLAG_ONTRANSPORT)
         {
-            logdev("TRANSPORT @ mi.flags: guid="I64FMT" x=%f y=%f z=%f o=%f", mi.t_guid, mi.t_pos.x, mi.t_pos.y, mi.t_pos.z, mi.t_pos.o);
+            mi.t_guid = recvPacket.GetPackedGuid();
+            recvPacket >> mi.t_x >> mi.t_y >> mi.t_z >> mi.t_o;
+            recvPacket >> mi.t_time; // added in 2.0.3
+            recvPacket >> mi.t_seat;
+            logdev("TRANSPORT @ mi.flags: guid="I64FMT" x=%f y=%f z=%f o=%f", mi.t_guid, mi.t_x, mi.t_y, mi.t_z, mi.t_o);
         }
 
-        if((mi.flags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) || (mi.flags2 & MOVEMENTFLAG2_ALLOW_PITCHING))
+        if((mi.flags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) || (mi.unkFlags & 0x20)) //The last one is MOVEFLAG2_ALLOW_PITCHING in MaNGOS
         {
+            recvPacket >>  mi.s_angle;
             logdev("MovementUpdate: MOVEMENTFLAG_SWIMMING or FLYING is set, angle = %f!", mi.s_angle);
         }
 
+        recvPacket >> mi.fallTime;
         logdev("MovementUpdate: FallTime = %u", mi.fallTime);
 
         if(mi.flags & MOVEMENTFLAG_FALLING)
         {
-            logdev("MovementUpdate: MOVEMENTFLAG_FALLING is set, velocity=%f sinA=%f cosA=%f xyspeed=%f = %u", mi.j_velocity, mi.j_sinAngle, mi.j_cosAngle, mi.j_xyspeed);
+            recvPacket >> mi.j_unk >> mi.j_sinAngle >> mi.j_cosAngle >> mi.j_xyspeed;
+            logdev("MovementUpdate: MOVEMENTFLAG_FALLING is set, unk=%f sinA=%f cosA=%f xyspeed=%f = %u", mi.j_unk, mi.j_sinAngle, mi.j_cosAngle, mi.j_xyspeed);
         }
 
         if(mi.flags & MOVEMENTFLAG_SPLINE_ELEVATION)
         {
+            recvPacket >> mi.u_unk1;
             logdev("MovementUpdate: MOVEMENTFLAG_SPLINE is set, got %u", mi.u_unk1);
         }
 
-        recvPacket >> speedWalk >> speedRun >> speedSwimBack >> speedSwim >> speedWalkBack; // speedRun can also be mounted speed if player is mounted; WalkBack is called RunBack in Mangos
-        if(client > CLIENT_CLASSIC_WOW)
-          recvPacket >> speedFly >> speedFlyBack; // fly added in 2.0.x
-        recvPacket >> speedTurn;
-        if(client > CLIENT_TBC)
-          recvPacket >> speedPitchRate;
+        recvPacket >> speedWalk >> speedRun >> speedSwimBack >> speedSwim; // speedRun can also be mounted speed if player is mounted
+        recvPacket >> speedWalkBack >> speedFly >> speedFlyBack >> speedTurn; // fly added in 2.0.x
+        recvPacket >> speedPitchRate;
         logdev("MovementUpdate: Got speeds, walk=%f run=%f turn=%f", speedWalk, speedRun, speedTurn);
         if(u)
         {
-            u->SetPosition(mi.pos.x, mi.pos.y, mi.pos.z, mi.pos.o);
+            u->SetPosition(mi.x, mi.y, mi.z, mi.o);
             u->SetSpeed(MOVE_WALK, speedWalk);
             u->SetSpeed(MOVE_RUN, speedRun);
             u->SetSpeed(MOVE_SWIMBACK, speedSwimBack);
@@ -323,34 +319,15 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
         // TODO: correct this one as soon as its meaning is known OR if it appears often and needs to be fixed
         if(mi.flags & MOVEMENTFLAG_SPLINE_ENABLED)
         {
-            logdev("MovementUpdate: MOVEMENTFLAG_SPLINE_ENABLED!");
-            //checked for 3.3.5
-            //We do not do anything with the spline stuff so far, it just needs to be read to be skipped correctly
-            uint32 splineflags, timepassed, duration, id, effect_start_time, path_nodes;
-            uint8 spline_mode;
-            float facing_angle,facing_x,facing_y,facing_z, duration_mod, duration_next, vertical_acceleration;
-            float x,y,z;
-            uint64 facing_target;
-            recvPacket >> splineflags;
-            if(splineflags & SF_Final_Angle)
-              recvPacket >> facing_angle;
-            if(splineflags & SF_Final_Point)
-              recvPacket >> facing_x >> facing_y >> facing_z;
-            recvPacket >> timepassed >> duration >> id >> duration_mod >> duration_next >> vertical_acceleration >> effect_start_time;
-            recvPacket >> path_nodes;
-            for(uint32 i = 0;i<path_nodes;i++)
-            {
-              recvPacket >> x >> y >> z;
-            }
-            recvPacket >> spline_mode;
-            recvPacket >> x >> y >> z; // FinalDestination
+            logerror("MovementUpdate: MOVEMENTFLAG_SPLINE2 is set, if you see this message please report it!");
+            return;
         }
     }
     else // !UPDATEFLAG_LIVING
     {
         if(flags & UPDATEFLAG_POSITION)
         {
-            uint64 pguid = recvPacket.readPackGUID();
+            uint64 pguid = recvPacket.GetPackedGuid();
             float x,y,z,o,sx,sy,sz,so;
             recvPacket >> x >> y >> z;
             recvPacket >> sx >> sy >> sz;
@@ -358,7 +335,7 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
 
             if (obj && obj->IsWorldObject())
                 ((WorldObject*)obj)->SetPosition(x, y, z, o);
-        }
+        } 
         else
         {
             if(flags & UPDATEFLAG_HAS_POSITION)
@@ -368,7 +345,7 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
                 {
                     recvPacket >> x >> y >> z >> o;
                     // only zeroes here
-                }
+                } 
                 else
                 {
                     recvPacket >> x >> y >> z >> o;
@@ -379,42 +356,35 @@ void WorldSession::_MovementUpdate(uint8 objtypeid, uint64 uguid, WorldPacket& r
         }
     }
 
-    if(client > CLIENT_CLASSIC_WOW && flags & UPDATEFLAG_LOWGUID)
+    if(flags & UPDATEFLAG_LOWGUID)
     {
         recvPacket >> unk32;
         logdev("MovementUpdate: UPDATEFLAG_LOWGUID is set, got %X", unk32);
     }
 
-    if(client > CLIENT_CLASSIC_WOW && flags & UPDATEFLAG_HIGHGUID)
+    if(flags & UPDATEFLAG_HIGHGUID)
     {
         recvPacket >> unk32;             // 2.0.6 - high guid was there, unk for 2.0.12
         // not sure if this is correct, MaNGOS sends 0 always.
         //obj->SetUInt32Value(OBJECT_FIELD_GUID+1,higuid); // note that this sets only the high part of the guid
         logdev("MovementUpdate: UPDATEFLAG_HIGHGUID is set, got %X", unk32);
     }
-    if(client == CLIENT_CLASSIC_WOW && flags & UPDATEFLAG_ALL_6005)
-    {
-        recvPacket >> unk32;
-        // MaNGOS sends 1 always.
-        logdev("MovementUpdate: UPDATEFLAG_ALL is set, got %X", unk32);
-    }
-
 
     if(flags & UPDATEFLAG_HAS_TARGET)
     {
-        uint64 unkguid = recvPacket.readPackGUID(); // MaNGOS sends uint8(0) always, but its probably be a packed guid
+        uint64 unkguid = recvPacket.GetPackedGuid(); // MaNGOS sends uint8(0) always, but its probably be a packed guid
         logdev("MovementUpdate: UPDATEFLAG_FULLGUID is set, got "I64FMT, unkguid);
     }
 
     if(flags & UPDATEFLAG_TRANSPORT)
     {
-        recvPacket >> unk32; // mangos says: ms time
+        recvPacket >> unk32; // whats this used for?
         logdev("MovementUpdate: UPDATEFLAG_TRANSPORT is set, got %u", unk32);
     }
 
     if(flags & UPDATEFLAG_VEHICLE)                          // unused for now
     {
-        uint32 vehicleId;
+        uint32 vehicleId; 
         float facingAdj;
 
         recvPacket >> vehicleId >> facingAdj;
@@ -433,12 +403,12 @@ void WorldSession::_ValuesUpdate(uint64 uguid, WorldPacket& recvPacket)
     Object *obj = objmgr.GetObj(uguid);
     uint8 blockcount,tyid;
     uint32 value, masksize, valuesCount;
+    float fvalue;
 
     if(obj)
     {
         valuesCount = obj->GetValuesCount();
         tyid = obj->GetTypeId();
-        logdebug("Type %u Object, %u Values",tyid, valuesCount);
     }
     else
     {
@@ -457,6 +427,7 @@ void WorldSession::_ValuesUpdate(uint64 uguid, WorldPacket& recvPacket)
     umask.SetMask(updateMask);
     //delete [] updateMask; // will be deleted at ~UpdateMask() !!!!
     logdev("ValuesUpdate TypeId=%u GUID="I64FMT" pObj=%X Blocks=%u Masksize=%u",tyid,uguid,obj,blockcount,masksize);
+
     // just in case the object does not exist, and we have really a container instead of an item, and a value in
     // the container fields is set, THEN we have a problem. this should never be the case; it can be fixed in a
     // more correct way if there is the need.
@@ -467,14 +438,23 @@ void WorldSession::_ValuesUpdate(uint64 uguid, WorldPacket& recvPacket)
         {
             if(obj)
             {
-                recvPacket >> value;
-                obj->SetUInt32Value(i, value);  //It does not matter what type of value we are setting, just copy the bytes
-                DEBUG(logdev("%u %u",i,value));
+                if(IsFloatField(obj->GetTypeMask(),i))
+                {
+                    recvPacket >> fvalue;                    
+                    obj->SetFloatValue(i, fvalue);
+                    logdev("-> Field[%u] = %f",i,fvalue);
+                }
+                else
+                {
+                    recvPacket >> value;
+                    obj->SetUInt32Value(i, value);
+                    logdev("-> Field[%u] = %u",i,value);
+                }
             }
             else
             {
                 recvPacket >> value; // drop the value, since object doesnt exist (always 4 bytes)
-            }
+            }            
         }
     }
 }
@@ -534,117 +514,115 @@ void WorldSession::_QueryObjectInfo(uint64 guid)
     }
 }
 
-void MovementInfo::Read(ByteBuffer &data)
+// helper to determine if an updatefield should store float or int values, depending on TypeId
+bool IsFloatField(uint8 ty, uint32 f)
 {
-    data >> flags;
-    if(_c == CLIENT_WOTLK)
-      data >> flags2;
-    if(_c == CLIENT_TBC)
+    static uint32 floats_object[] =
     {
-      uint8 tempFlags2;
-      data >> tempFlags2;
-      flags2 = tempFlags2;
-    }
-    data >> time;
-    data >> pos.x;
-    data >> pos.y;
-    data >> pos.z;
-    data >> pos.o;
-
-    if(flags & (MOVEMENTFLAG_ONTRANSPORT))
+        (uint32)OBJECT_FIELD_SCALE_X,
+        (uint32)-1
+    };
+    /*
+    static uint32 floats_item[] =
     {
-        if(_c < CLIENT_WOTLK)
-          data >> t_guid;
-        else
-          t_guid =data.readPackGUID();
-        data >> t_pos.x;
-        data >> t_pos.y;
-        data >> t_pos.z;
-        data >> t_pos.o;
-        if(_c > CLIENT_CLASSIC_WOW)
-          data >> t_time;
-        if(_c > CLIENT_TBC)
-          data >> t_seat;
-
-        if(_c > CLIENT_TBC && flags2 & MOVEMENTFLAG2_INTERP_MOVEMENT)
-            data >> t_time2;
-    }
-
-    if((flags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) || (flags2 & MOVEMENTFLAG2_ALLOW_PITCHING))
+        (uint32)-1
+    };
+    static uint32 floats_container[] =
     {
-        data >> s_angle;
-    }
-
-    data >> fallTime;
-
-    if(flags & (MOVEMENTFLAG_FALLING))
+        (uint32)-1
+    };
+    */
+    static uint32 floats_unit[] =
     {
-        data >> j_velocity;
-        data >> j_sinAngle;
-        data >> j_cosAngle;
-        data >> j_xyspeed;
-    }
-
-    if(flags & (MOVEMENTFLAG_SPLINE_ELEVATION))
+        (uint32)UNIT_FIELD_BOUNDINGRADIUS,
+        (uint32)UNIT_FIELD_COMBATREACH,
+        (uint32)UNIT_FIELD_MINDAMAGE,
+        (uint32)UNIT_FIELD_MAXDAMAGE,
+        (uint32)UNIT_FIELD_MINOFFHANDDAMAGE,
+        (uint32)UNIT_FIELD_MINOFFHANDDAMAGE,
+        (uint32)UNIT_MOD_CAST_SPEED,
+        (uint32)UNIT_FIELD_RANGED_ATTACK_POWER_MULTIPLIER,
+        (uint32)UNIT_FIELD_ATTACK_POWER_MULTIPLIER,
+        (uint32)UNIT_FIELD_MINRANGEDDAMAGE,
+        (uint32)UNIT_FIELD_MAXRANGEDDAMAGE,
+        (uint32)UNIT_FIELD_POWER_COST_MULTIPLIER,
+        (uint32)-1
+    };
+    static uint32 floats_player[] =
     {
-        data >> u_unk1;
-    }
+        (uint32)PLAYER_BLOCK_PERCENTAGE,
+        (uint32)PLAYER_DODGE_PERCENTAGE,
+        (uint32)PLAYER_PARRY_PERCENTAGE,
+        (uint32)PLAYER_RANGED_CRIT_PERCENTAGE,
+        (uint32)PLAYER_OFFHAND_CRIT_PERCENTAGE,
+        (uint32)PLAYER_SPELL_CRIT_PERCENTAGE1,
+        (uint32)PLAYER_HOLY_SPELL_CRIT_PERCENTAGE,
+        (uint32)PLAYER_FIRE_SPELL_CRIT_PERCENTAGE,
+        (uint32)PLAYER_NATURE_SPELL_CRIT_PERCENTAGE,
+        (uint32)PLAYER_FROST_SPELL_CRIT_PERCENTAGE,
+        (uint32)PLAYER_SHADOW_SPELL_CRIT_PERCENTAGE,
+        (uint32)PLAYER_ARCANE_SPELL_CRIT_PERCENTAGE,
+        (uint32)-1
+    };
+    static uint32 floats_gameobject[] =
+    {
+        (uint32)GAMEOBJECT_PARENTROTATION,
+        (uint32)(GAMEOBJECT_PARENTROTATION + 1),
+        (uint32)(GAMEOBJECT_PARENTROTATION + 2),
+        (uint32)(GAMEOBJECT_PARENTROTATION + 3),
+        (uint32)-1
+    };
+    static uint32 floats_dynobject[] =
+    {
+        (uint32)DYNAMICOBJECT_RADIUS,
+        (uint32)DYNAMICOBJECT_POS_X,
+        (uint32)DYNAMICOBJECT_POS_Y,
+        (uint32)DYNAMICOBJECT_POS_Z,
+        (uint32)DYNAMICOBJECT_FACING,
+        (uint32)-1
+    };
+    /*
+    static uint32 floats_corpse[] =
+    {
+        (uint32)-1
+    };
+    */
+
+    if(ty & TYPE_OBJECT)
+        for(uint32 i = 0; floats_object[i] != (uint32)(-1); i++)
+            if(floats_object[i] == f)
+                return true;
+    /*
+    if(ty & TYPE_ITEM)
+        for(uint32 i = 0; floats_item[i] != (-1); i++)
+            if(floats_object[i] == f)
+                return true;
+    if(ty & TYPE_CONTAINER)
+        for(uint32 i = 0; floats_container[i] != (-1); i++)
+            if(floats_object[i] == f)
+                return true;
+    */
+    if(ty & TYPE_UNIT)
+        for(uint32 i = 0; floats_unit[i] != (uint32)(-1); i++)
+            if(floats_unit[i] == f)
+                return true;
+    if(ty & TYPE_PLAYER)
+        for(uint32 i = 0; floats_player[i] != (uint32)(-1); i++)
+            if(floats_player[i] == f)
+                return true;
+    if(ty & TYPE_GAMEOBJECT)
+        for(uint32 i = 0; floats_gameobject[i] != (uint32)(-1); i++)
+            if(floats_gameobject[i] == f)
+                return true;
+    if(ty & TYPE_DYNAMICOBJECT)
+        for(uint32 i = 0; floats_dynobject[i] != (uint32)(-1); i++)
+            if(floats_dynobject[i] == f)
+                return true;
+    /*
+    if(ty & TYPE_CORPSE)
+        for(uint32 i = 0; floats_corpse[i] != (uint32)(-1); i++)
+            if(floats_corpse[i] == f)
+                return true;
+    */
+    return false;
 }
-
-void MovementInfo::Write(ByteBuffer &data) const
-{
-    data << flags;
-    if(_c == CLIENT_WOTLK)
-      data << flags2;
-    if(_c == CLIENT_TBC)
-    {
-      data << (uint8)flags2;
-    }
-    data << time;
-    data << pos.x;
-    data << pos.y;
-    data << pos.z;
-    data << pos.o;
-
-    if(flags & (MOVEMENTFLAG_ONTRANSPORT))
-    {
-        if(_c < CLIENT_WOTLK)
-          data << t_guid;
-        else
-          data.appendPackGUID(t_guid);
-        data << t_pos.x;
-        data << t_pos.y;
-        data << t_pos.z;
-        data << t_pos.o;
-        if(_c > CLIENT_CLASSIC_WOW)
-          data << t_time;
-        if(_c > CLIENT_TBC)
-          data << t_seat;
-
-        if(_c > CLIENT_TBC && flags2 & MOVEMENTFLAG2_INTERP_MOVEMENT)
-            data << t_time2;
-    }
-
-    if((flags & (MOVEMENTFLAG_SWIMMING | MOVEMENTFLAG_FLYING)) || (flags2 & MOVEMENTFLAG2_ALLOW_PITCHING))
-    {
-        data << s_angle;
-    }
-
-    data << fallTime;
-
-    if(flags & (MOVEMENTFLAG_FALLING))
-    {
-        data << j_velocity;
-        data << j_sinAngle;
-        data << j_cosAngle;
-        data << j_xyspeed;
-    }
-
-    if(flags & (MOVEMENTFLAG_SPLINE_ELEVATION))
-    {
-        data << u_unk1;
-    }
-}
-
-
-

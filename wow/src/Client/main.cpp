@@ -3,7 +3,7 @@
 #include "common.h"
 #include "main.h"
 #include "PseuWoW.h"
-//#include "MemoryDataHolder.h"
+#include "MemoryDataHolder.h"
 
 
 std::list<PseuInstanceRunnable*> instanceList; // TODO: move this to a "Master" class later
@@ -38,7 +38,7 @@ void _OnSignal(int s)
         case SIGINT:
         case SIGQUIT:
         case SIGTERM:
-            quitproc();
+            quitproc();            
             break;
         case SIGABRT:
         #ifndef _DEBUG
@@ -92,15 +92,15 @@ int main(int argc, char* argv[])
         std::set_new_handler(_new_handler);
         log_prepare("logfile.txt","a");
         logcustom(0,LGREEN,"+----------------------------------+");
-        logcustom(0,LGREEN,"| (C) 2006-2010 Snowstorm Software |");
+        logcustom(0,LGREEN,"| (C) 2006-2009 Snowstorm Software |");
         logcustom(0,LGREEN,"|  http://www.mangosclient.org     |");
         logcustom(0,LGREEN,"+----------------------------------+");
         logcustom(0,GREEN,"Platform: %s",PLATFORM_NAME);
         logcustom(0,GREEN,"Compiler: %s ("COMPILER_VERSION_OUT")",COMPILER_NAME,COMPILER_VERSION);
         logcustom(0,GREEN,"Compiled: %s  %s",__DATE__,__TIME__);
-
+        
         _HookSignals();
-     //   MemoryDataHolder::Init();
+        MemoryDataHolder::Init();
 
         // 1 instance is enough for now
         PseuInstanceRunnable *r=new PseuInstanceRunnable();
@@ -111,15 +111,14 @@ int main(int argc, char* argv[])
         t.wait();
         //...
         log_close();
-       // MemoryDataHolder::Shutdown();
         _UnhookSignals();
         raise(SIGABRT);  // this way to terminate is not nice but the only way to quit the CLI thread
         raise(SIGQUIT);
         return 0;
-	}
+	} 
     catch (...)
     {
-        printf("ERROR: Unhandled exception in main thread!\n");
+        printf("ERROR: Unhandled exception in main thread!\n"); 
         raise(SIGABRT);
         return 1;
     }

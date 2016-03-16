@@ -202,8 +202,14 @@ bool CreateDir(const char *dir)
 uint32 getMSTime(void)
 {
     uint32 time_in_ms = 0;
-   // time_in_ms = timeGetTime();
+#if PLATFORM == PLATFORM_WIN32
+    time_in_ms = timeGetTime();
+#else
+    struct timeb tp;
+    ftime(&tp);
 
+    time_in_ms = tp.time * 1000 + tp.millitm;
+#endif
 
     return time_in_ms;
 }

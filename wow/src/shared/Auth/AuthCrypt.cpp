@@ -30,14 +30,13 @@ AuthCrypt::~AuthCrypt()
 
 }
 
-// 3.3.5
-void AuthCrypt::Init_12340(BigNumber *K)
+void AuthCrypt::Init(BigNumber *K)
 {
-    uint8 ClientDecryptionKey[SEED_KEY_SIZE] = { 0xCC, 0x98, 0xAE, 0x04, 0xE8, 0x97, 0xEA, 0xCA, 0x12, 0xDD, 0xC0, 0x93, 0x42, 0x91, 0x53, 0x57 };
+    uint8 ClientDecryptionKey[SEED_KEY_SIZE] = { 0x22, 0xBE, 0xE5, 0xCF, 0xBB, 0x07, 0x64, 0xD9, 0x00, 0x45, 0x1B, 0xD0, 0x24, 0xB8, 0xD5, 0x45 };
     HmacHash serverEncryptHmac(SEED_KEY_SIZE, (uint8*)ClientDecryptionKey);
     uint8 *decryptHash = serverEncryptHmac.ComputeHash(K);
 
-    uint8 ServerEncryptionKey[SEED_KEY_SIZE] = { 0xC2, 0xB3, 0x72, 0x3C, 0xC6, 0xAE, 0xD9, 0xB5, 0x34, 0x3C, 0x53, 0xEE, 0x2F, 0x43, 0x67, 0xCE };
+    uint8 ServerEncryptionKey[SEED_KEY_SIZE] = { 0xF4, 0x66, 0x31, 0x59, 0xFC, 0x83, 0x6E, 0x31, 0x31, 0x02, 0x51, 0xD5, 0x44, 0x31, 0x67, 0x98 };
     HmacHash clientDecryptHmac(SEED_KEY_SIZE, (uint8*)ServerEncryptionKey);
     uint8 *encryptHash = clientDecryptHmac.ComputeHash(K);
 
@@ -61,7 +60,7 @@ void AuthCrypt::Init_12340(BigNumber *K)
     _initialized = true;
 }
 
-void AuthCrypt::DecryptRecv_12340(uint8 *data, size_t len)
+void AuthCrypt::DecryptRecv(uint8 *data, size_t len)
 {
     if (!_initialized)
         return;
@@ -69,84 +68,10 @@ void AuthCrypt::DecryptRecv_12340(uint8 *data, size_t len)
     _decrypt.UpdateData(len, data);
 }
 
-void AuthCrypt::EncryptSend_12340(uint8 *data, size_t len)
+void AuthCrypt::EncryptSend(uint8 *data, size_t len)
 {
     if (!_initialized)
         return;
 
     _encrypt.UpdateData(len, data);
-}
-
-
-void AuthCrypt::Init_8606(BigNumber *K)
-{
-    uint8 *key = new uint8[SHA_DIGEST_LENGTH];
-
-    uint8 recvSeed[SEED_KEY_SIZE] = { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA };
-    HmacHash recvHash(SEED_KEY_SIZE, (uint8*)recvSeed);
-    recvHash.UpdateBigNumber(K);
-    recvHash.Finalize();
-    memcpy(key, recvHash.GetDigest(), SHA_DIGEST_LENGTH);
-
-    _key.resize(SHA_DIGEST_LENGTH);
-    std::copy(key, key + SHA_DIGEST_LENGTH, _key.begin());
-    delete[] key;
-
-    _send_i = _send_j = _recv_i = _recv_j = 0;
-    _initialized = true;
-}
-
-
-//1.12.2
-void AuthCrypt::Init_6005(BigNumber *K)
-{
-    _send_i = _send_j = _recv_i = _recv_j = 0;
-
-    SetKey_6005(K->AsByteArray(),40);
-    _initialized = true;
-
-}
-
-void AuthCrypt::DecryptRecv_6005(uint8 *data, size_t len)
-{
-    if (!_initialized)
-        return;
-
-    if (len < CRYPTED_RECV_LEN_6005)
-        return;
-
-    for (size_t t = 0; t < CRYPTED_RECV_LEN_6005; t++)
-    {
-        _recv_i %= _key.size();
-        uint8 x = (data[t] - _recv_j) ^ _key[_recv_i];
-        ++_recv_i;
-        _recv_j = data[t];
-        data[t] = x;
-
-
-    }
-
-}
-
-void AuthCrypt::EncryptSend_6005(uint8 *data, size_t len)
-{
-    if (!_initialized)
-        return;
-    if (len < CRYPTED_SEND_LEN_6005)
-        return;
-
-    for (size_t t = 0; t < CRYPTED_SEND_LEN_6005; t++)
-    {
-        _send_i %= _key.size();
-        uint8 x = (data[t] ^ _key[_send_i]) + _send_j;
-        ++_send_i;
-        data[t] = _send_j = x;
-    }
-
-}
-
-void AuthCrypt::SetKey_6005(uint8 *key, size_t len)
-{
-    _key.resize(len);
-    std::copy(key, key + len, _key.begin());
 }

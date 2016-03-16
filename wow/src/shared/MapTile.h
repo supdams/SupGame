@@ -33,7 +33,6 @@ struct Doodad
     float x,y,z,ox,oy,oz,scale;
     uint16 flags;
     std::string model;
-    std::string MPQpath;
 };
 
 struct WorldMapObject
@@ -42,7 +41,6 @@ struct WorldMapObject
     float x,y,z,ox,oy,oz;
     uint16 flags,doodadset;
     std::string model;
-    std::string MPQpath;
 };
 
 // generic map tile class. stores the information previously stored in an ADT file

@@ -7,14 +7,6 @@
 #include "HelperDefs.h"
 #include "World.h"
 
-struct UpdateField
-{
-  UpdateField(){};
-  UpdateField(uint16 o, uint16 t):offset(o),type(t){};
-  uint16 offset;
-  uint16 type;
-};
-
 enum TYPE
 {
     TYPE_OBJECT         = 1,
@@ -40,17 +32,16 @@ enum TYPEID
     TYPEID_DYNAMICOBJECT = 6,
     TYPEID_CORPSE        = 7,
     TYPEID_AIGROUP       = 8,
-    TYPEID_AREATRIGGER   = 9,
-    TYPEID_MAX
+    TYPEID_AREATRIGGER   = 9
 };
 
 class Object
 {
 public:
     virtual ~Object();
-    inline const uint64 GetGUID() const { return GetUInt64Value(OBJECT_FIELD_GUID); }
-    inline const uint32 GetGUIDLow() const { return GetUInt32Value(OBJECT_FIELD_GUID_LOW); }
-    inline const uint32 GetGUIDHigh() const { return GetUInt32Value(OBJECT_FIELD_GUID_HIGH); }
+    inline const uint64 GetGUID() const { return GetUInt64Value(0); }
+    inline const uint32 GetGUIDLow() const { return GetUInt32Value(0); }
+    inline const uint32 GetGUIDHigh() const { return GetUInt32Value(1); }
     inline uint32 GetEntry() const { return GetUInt32Value(OBJECT_FIELD_ENTRY); }
     inline uint16 GetValuesCount(void) { return _valuescount; }
 
@@ -66,39 +57,35 @@ public:
     inline bool IsDynObject(void) { return _typeid == TYPEID_DYNAMICOBJECT; } // specific
     inline bool IsGameObject(void) { return _typeid == TYPEID_GAMEOBJECT; }   // specific
     inline bool IsWorldObject(void) { return _type & (TYPE_PLAYER | TYPE_UNIT | TYPE_CORPSE | TYPE_DYNAMICOBJECT | TYPE_GAMEOBJECT); }
-    inline const uint32 GetUInt32Value( UpdateFieldName index ) const
+    inline const uint32 GetUInt32Value( uint16 index ) const
     {
-        return _uint32values[ Object::updatefields[index].offset ];
+        return _uint32values[ index ];
     }
 
-    inline const uint64 GetUInt64Value( UpdateFieldName index ) const
+    inline const uint64 GetUInt64Value( uint16 index ) const
     {
-        return *((uint64*)&(_uint32values[ Object::updatefields[index].offset ]));
+        return *((uint64*)&(_uint32values[ index ]));
     }
 
-    inline bool HasFlag( UpdateFieldName index, uint32 flag ) const
+    inline bool HasFlag( uint16 index, uint32 flag ) const
     {
-        return (_uint32values[ Object::updatefields[index].offset ] & flag) != 0;
+        return (_uint32values[ index ] & flag) != 0;
     }
-    inline const float GetFloatValue( UpdateFieldName index ) const
+    inline const float GetFloatValue( uint16 index ) const
     {
-        return _floatvalues[ Object::updatefields[index].offset ];
+        return _floatvalues[ index ];
     }
-    inline void SetFloatValue( UpdateFieldName index, float value )
+    inline void SetFloatValue( uint16 index, float value )
     {
-        _floatvalues[ Object::updatefields[index].offset ] = value;
+        _floatvalues[ index ] = value;
     }
-    inline void SetUInt32Value( UpdateFieldName index, uint32 value )
+    inline void SetUInt32Value( uint16 index, uint32 value )
     {
-        _uint32values[ Object::updatefields[index].offset ] = value;
+        _uint32values[ index ] = value;
     }
-    inline void SetUInt32Value( uint16 offset, uint32 value )
+    inline void SetUInt64Value( uint16 index, uint64 value )
     {
-        _uint32values[ offset ] = value;
-    }
-    inline void SetUInt64Value( UpdateFieldName index, uint64 value )
-    {
-        *((uint64*)&(_uint32values[ Object::updatefields[index].offset ])) = value;
+        *((uint64*)&(_uint32values[ index ])) = value;
     }
 
     inline void SetName(std::string name) { _name = name; }
@@ -106,20 +93,17 @@ public:
 
     inline float GetObjectSize() const
     {
-        return ( _valuescount > Object::updatefields[UNIT_FIELD_BOUNDINGRADIUS].offset ) ? _floatvalues[Object::updatefields[UNIT_FIELD_BOUNDINGRADIUS].offset] : 0.39f;
+        return ( _valuescount > UNIT_FIELD_BOUNDINGRADIUS ) ? _floatvalues[UNIT_FIELD_BOUNDINGRADIUS] : 0.39f;
     }
 
     void Create(uint64 guid);
     inline bool _IsDepleted(void) { return _depleted; }
     inline void _SetDepleted(void) { _depleted = true; }
-
-    static uint32 maxvalues[];
-    static UpdateField updatefields[];
-
+    
 protected:
     Object();
     void _InitValues(void);
-
+        
     uint16 _valuescount;
     union
     {
@@ -130,9 +114,7 @@ protected:
     uint8 _typeid;
     std::string _name;
     bool _depleted : 1; // true if the object was deleted from the objmgr, but not from memory
-
 };
-
 
 class WorldObject : public Object
 {
@@ -163,8 +145,17 @@ protected:
 
 inline uint32 GetValuesCountByTypeId(uint8 tid)
 {
-    if(tid < TYPEID_MAX)
-      return Object::maxvalues[tid];
+    switch(tid)
+    {
+    case TYPEID_OBJECT: return OBJECT_END;
+    case TYPEID_UNIT: return UNIT_END;
+    case TYPEID_PLAYER: return PLAYER_END;
+    case TYPEID_ITEM: return ITEM_END;
+    case TYPEID_CONTAINER: return CONTAINER_END;
+    case TYPEID_GAMEOBJECT: return GAMEOBJECT_END;
+    case TYPEID_DYNAMICOBJECT: return DYNAMICOBJECT_END;
+    case TYPEID_CORPSE: return CORPSE_END;
+    }
     return 0;
 }
 

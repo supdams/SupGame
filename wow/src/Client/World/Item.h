@@ -294,14 +294,14 @@ enum ITEM_SUBCLASS_TRADE_GOODS
     ITEM_SUBCLASS_PARTS             = 1,
     ITEM_SUBCLASS_EXPLOSIVES        = 2,
     ITEM_SUBCLASS_DEVICES           = 3,
-    ITEM_SUBCLASS_JEWELCRAFTING     = 4,
-    ITEM_SUBCLASS_CLOTH             = 5,
-    ITEM_SUBCLASS_LEATHER           = 6,
-    ITEM_SUBCLASS_METAL_STONE       = 7,
-    ITEM_SUBCLASS_MEAT              = 8,
-    ITEM_SUBCLASS_HERB              = 9,
-    ITEM_SUBCLASS_ELEMENTAZL        = 10,
-    ITEM_SUBCLASS_TRADE_GOODS_OTHER = 11,
+    ITEM_SUBCLASS_JEWELCRAFTING     = 4, 
+    ITEM_SUBCLASS_CLOTH             = 5, 
+    ITEM_SUBCLASS_LEATHER           = 6, 
+    ITEM_SUBCLASS_METAL_STONE       = 7, 
+    ITEM_SUBCLASS_MEAT              = 8, 
+    ITEM_SUBCLASS_HERB              = 9, 
+    ITEM_SUBCLASS_ELEMENTAZL        = 10, 
+    ITEM_SUBCLASS_TRADE_GOODS_OTHER = 11, 
     ITEM_SUBCLASS_ENCHANTING        = 12,
     ITEM_SUBCLASS_MATERIAL          = 13,
     ITEM_SUBCLASS_ARMOR_ENCHANTMENT = 14,
@@ -327,10 +327,7 @@ enum ITEM_SUBCLASS_QUIVER
     ITEM_SUBCLASS_AMMO_POUCH        = 3
 };
 
-#define MAX_ITEM_PROTO_DAMAGES 2                            // changed in 3.1.0
-#define MAX_ITEM_PROTO_SOCKETS 3
-#define MAX_ITEM_PROTO_SPELLS  5
-#define MAX_ITEM_PROTO_STATS  10
+#define MAX_ITEM_PROTO_DAMAGES 2
 
 struct _ItemStat
 {
@@ -373,7 +370,6 @@ struct ItemProto
     uint32 DisplayInfoID;
     uint32 Quality;
     uint32 Flags;
-    uint32 Faction;
     uint32 BuyCount;
     uint32 BuyPrice;
     uint32 SellPrice;
@@ -393,10 +389,10 @@ struct ItemProto
     uint32 Stackable;
     uint32 ContainerSlots;
     uint32 StatsCount;
-    _ItemStat ItemStat[MAX_ITEM_PROTO_STATS];
+    _ItemStat ItemStat[10];
     uint32 ScalingStatDistribution;                         // id from ScalingStatDistribution.dbc
     uint32 ScalingStatValue;                                // mask for selecting column in ScalingStatValues.dbc
-    _ItemDamage Damage[MAX_ITEM_PROTO_DAMAGES];
+    _ItemDamage Damage[5];
     uint32 Armor;
     uint32 HolyRes;
     uint32 FireRes;
@@ -407,7 +403,7 @@ struct ItemProto
     uint32 Delay;
     uint32 Ammo_type;
     float  RangedModRange;
-    _ItemSpell Spells[MAX_ITEM_PROTO_SPELLS];
+    _ItemSpell Spells[5];
     uint32 Bonding;
     std::string Description;
     uint32 PageText;
@@ -417,8 +413,7 @@ struct ItemProto
     uint32 LockID;
     uint32 Material;
     uint32 Sheath;
-    uint32 RandomProperty;
-    uint32 RandomSuffix;
+    uint32 Extra;
 	uint32 Unk1;
     uint32 Block;
     uint32 ItemSet;
@@ -427,9 +422,10 @@ struct ItemProto
 	uint32 Map;
 	uint32 BagFamily;
 	uint32 TotemCategory;
-    _ItemSocket Socket[MAX_ITEM_PROTO_SOCKETS];
+	_ItemSocket Socket[3];
 	uint32 socketBonus;
 	uint32 GemProperties;
+	uint32 ExtendedCost;
     uint32 RequiredArenaRank;
 	uint32 RequiredDisenchantSkill;
 	float  ArmorDamageModifier;

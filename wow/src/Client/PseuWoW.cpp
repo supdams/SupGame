@@ -11,11 +11,11 @@
 #include "RealmSession.h"
 #include "WorldSession.h"
 #include "CacheHandler.h"
-#include "PseuGUI.h"
+#include "GUI/PseuGUI.h"
 #include "RemoteController.h"
 #include "Cli.h"
-//#include "GUI/SceneData.h"
-//#include "MemoryDataHolder.h"
+#include "GUI/SceneData.h"
+#include "MemoryDataHolder.h"
 
 
 //###### Start of program code #######
@@ -240,7 +240,7 @@ void PseuInstance::Run(void)
         while(!GetGUI()->IsInitialized())
             Sleep(1); // wait until the gui is ready. it will crash otherwise
         logdebug("GUI: switching to startup display...");
-       // GetGUI()->SetSceneState(SCENESTATE_GUISTART);
+        GetGUI()->SetSceneState(SCENESTATE_GUISTART);
     }
     // TODO: as soon as username and password can be inputted into the gui, wait until it was set by user.
 
@@ -259,7 +259,7 @@ void PseuInstance::Run(void)
         }
         else
         {
-         //   GetGUI()->SetSceneState(SCENESTATE_LOGINSCREEN);
+            GetGUI()->SetSceneState(SCENESTATE_LOGINSCREEN);
         }
 
         // this is the mainloop
@@ -289,14 +289,14 @@ void PseuInstance::Run(void)
         SaveAllCache();
         //...
     }
-	/*
+
     if(GetScripts()->ScriptExists("_onexit"))
     {
         CmdSet Set;
         Set.arg[0] = DefScriptTools::toString(_error);
         GetScripts()->RunScript("_onexit",&Set);
     }
-	*/
+
     if(GetConf()->exitonerror == false && _error)
     {
         log("Exiting on error is disabled, PseuWoW is now IDLE");
@@ -550,7 +550,7 @@ void PseuInstanceConf::ApplyFromVarSet(VarSet &v)
     // cleanups, internal settings, etc.
     log_setloglevel(debug);
     log_setlogtime((bool)atoi(v.Get("LOGTIME").c_str()));
-   // MemoryDataHolder::SetThreadCount(dataLoaderThreads);
+    MemoryDataHolder::SetThreadCount(dataLoaderThreads);
 }
 
 

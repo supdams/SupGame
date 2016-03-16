@@ -4,7 +4,7 @@ Corpse::Corpse()
 {
     _type=TYPE_CORPSE;
     _typeid=TYPEID_CORPSE;
-    _valuescount=Object::maxvalues[_typeid];
+    _valuescount=CORPSE_END;
 }
 
 void Corpse::Create(uint64 guid)

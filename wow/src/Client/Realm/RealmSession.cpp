@@ -280,7 +280,7 @@ void RealmSession::_HandleRealmList(ByteBuffer& pkt)
         if(PseuGUI *gui = GetInstance()->GetGUI())
         {
             logdebug("RealmSession: GUI exists, switching to realm selection screen");
-//            gui->SetSceneState(SCENESTATE_REALMSELECT); // realm select is a sub-window of character selection
+            gui->SetSceneState(SCENESTATE_REALMSELECT); // realm select is a sub-window of character selection
         }
         else
         {
@@ -307,8 +307,8 @@ void RealmSession::SetRealmAddr(std::string host)
     GetInstance()->GetConf()->worldhost=host.substr(0,colonpos);
     GetInstance()->GetConf()->worldport=atoi(host.substr(colonpos+1,host.length()-colonpos-1).c_str());
     // set vars
- //   GetInstance()->GetScripts()->variables.Set("WORLDHOST",GetInstance()->GetConf()->worldhost);
-   // GetInstance()->GetScripts()->variables.Set("WORLDPORT",DefScriptTools::toString((uint64)(GetInstance()->GetConf()->worldport)));
+    GetInstance()->GetScripts()->variables.Set("WORLDHOST",GetInstance()->GetConf()->worldhost);
+    GetInstance()->GetScripts()->variables.Set("WORLDPORT",DefScriptTools::toString((uint64)(GetInstance()->GetConf()->worldport)));
 }
 
 void RealmSession::SetLogonData(void)
@@ -331,8 +331,8 @@ void RealmSession::SendLogonChallenge(void)
         GetInstance()->SetError();
         return;
     }
-  //  if(PseuGUI *gui = GetInstance()->GetGUI())
-    //    gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_LOGGING_IN);
+   // if(PseuGUI *gui = GetInstance()->GetGUI())
+ //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_LOGGING_IN);
     std::string acc = stringToUpper(_accname);
     ByteBuffer packet;
     packet << (uint8)AUTH_LOGON_CHALLENGE;
@@ -362,8 +362,8 @@ void RealmSession::_HandleLogonChallenge(ByteBuffer& pkt)
     {
         logerror("AUTH_LOGON_CHALLENGE: Recieved incorrect/unknown packet. Hexdump:");
         DumpInvalidPacket(pkt);
-   //     if(gui)
-     //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
+        //if(gui)
+        //    gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
         return;
     }
 
@@ -374,25 +374,25 @@ void RealmSession::_HandleLogonChallenge(ByteBuffer& pkt)
     {
     case 4:
         logerror("Realm Server did not find account \"%s\"!",_accname.c_str());
-      //  if(gui)
-      //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_ACC_NOT_FOUND);
+ //if(gui)
+      //      gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_ACC_NOT_FOUND);
         break;
     case 6:
         logerror("Account \"%s\" is already logged in!",_accname.c_str());
-         //if(gui)
-            // gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_ALREADY_CONNECTED);
+     //    if(gui)
+      //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_ALREADY_CONNECTED);
         break;
     case 9:
         logerror("Realm Server doesn't accept this version!");
-       //  if(gui)
-          //   gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_WRONG_VERSION);
+      //   if(gui)
+         //    gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_WRONG_VERSION);
         break;
     case 0:
         {
             pkt.read((uint8*)&lc, sizeof(sAuthLogonChallenge_S));
             logdetail("Login successful, now calculating proof packet...");
-           //  if(PseuGUI *gui = GetInstance()->GetGUI())
-              //   gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_AUTHENTICATING);
+             //if(PseuGUI *gui = GetInstance()->GetGUI())
+            //     gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_AUTHENTICATING);
 
             // now lets start calculating
             BigNumber N,A,B,a,u,x,v,S,salt,unk1,g,k(3); // init BNs, default k to 3
@@ -533,11 +533,11 @@ void RealmSession::_HandleLogonProof(ByteBuffer& pkt)
     logdebug("RealmSocket: Got AUTH_LOGON_PROOF [%u of %u bytes]",pkt.size(),sizeof(sAuthLogonProof_S));
     if(pkt.size() < 2)
     {
-        logerror("AUTH_LOGON_PROOF: Recieved incorrect/unknown packet. Hexdump:");
+        logerror("@@@@ AUTH_LOGON_PROOF: Recieved incorrect/unknown packet. Hexdump:");
         DumpInvalidPacket(pkt);
         DieOrReconnect(true);
-    //     if(gui)
- //            gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
+     //    if(gui)
+      //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
         return;
     }
     uint8 error = pkt[1];
@@ -546,17 +546,17 @@ void RealmSession::_HandleLogonProof(ByteBuffer& pkt)
     switch(error)
     {
         case REALM_AUTH_UPDATE_CLIENT:
-            log("The realm server requested client update.");
-          //   if(gui)
-          //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_WRONG_VERSION);
+            log("@@@@ The realm server requested client update.");
+           //  if(gui)
+        //         gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_WRONG_VERSION);
             DieOrReconnect(true);
             return;
 
         case REALM_AUTH_NO_MATCH:
         case REALM_AUTH_UNKNOWN2:
-          //   if(gui)
-           //      gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_AUTH_FAILED);
-            logerror("Wrong password or invalid account information or authentication error");
+             //if(gui)
+                // gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_AUTH_FAILED);
+            logerror("@@@@ Wrong password or invalid account information or authentication error");
             DieOrReconnect(false);
             return;
 
@@ -564,9 +564,9 @@ void RealmSession::_HandleLogonProof(ByteBuffer& pkt)
         default:
             if(error != REALM_AUTH_SUCCESS)
             {
-                logerror("AUTH_LOGON_PROOF: unk error = 0x%X",error);
-             //    if(gui)
-            //         gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
+                logerror("@@@@ AUTH_LOGON_PROOF: unk error = 0x%X",error);
+            //     if(gui)
+              //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_UNK_ERROR);
                 pkt.rpos(2);
                 DieOrReconnect(true);
                 return;
@@ -579,8 +579,10 @@ void RealmSession::_HandleLogonProof(ByteBuffer& pkt)
     //printchex((char*)&lp, sizeof(sAuthLogonProof_S),true);
     if(!memcmp(lp.M2,this->_m2,20))
     {
-       //  if(PseuGUI *gui = GetInstance()->GetGUI())
-       //      gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_REQ_REALM);
+		     log("@@@@ lp.M2,this->_m2,20");
+     
+     //    if(PseuGUI *gui = GetInstance()->GetGUI())
+        //     gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_REQ_REALM);
         // auth successful
         ByteBuffer packet;
         packet << (uint8)REALM_LIST;
@@ -589,11 +591,11 @@ void RealmSession::_HandleLogonProof(ByteBuffer& pkt)
     }
     else
     {
-        logcritical("Auth failed, M2 differs!");
+        logcritical("@@@@ Auth failed, M2 differs!");
         printf("My M2 :"); printchex((char*)_m2,20,true);
         printf("Srv M2:"); printchex((char*)lp.M2,20,true);
-      //   if(gui)
-         //    gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_AUTH_FAILED);
+       //  if(gui)
+       //      gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_AUTH_FAILED);
         DieOrReconnect(true);
     }
 }
@@ -616,9 +618,10 @@ void RealmSession::_HandleTransferInit(ByteBuffer& pkt)
     pkt >> _file_size;
     pkt.read(_file_md5,MD5_DIGEST_LENGTH);
     logcustom(0,GREEN,"TransferInit [%s]: File size: "I64FMTD" KB (MD5: %s)", (char*)type_str, _file_size / 1024L, toHexDump(&_file_md5[0],MD5_DIGEST_LENGTH,false).c_str());
-    // if(PseuGUI *gui = GetInstance()->GetGUI())
-     //    gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_FILE_TRANSFER);
-    delete [] type_str;
+   //  if(PseuGUI *gui = GetInstance()->GetGUI())
+ //gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_FILE_TRANSFER);
+   //@@@@ 
+	delete [] type_str;
     ByteBuffer bb(1);
     bb << uint8(XFER_ACCEPT);
     SendRealmPacket(bb);
@@ -627,7 +630,97 @@ void RealmSession::_HandleTransferInit(ByteBuffer& pkt)
 
 void RealmSession::_HandleTransferData(ByteBuffer& pkt)
 {
+    if(!_file_size)
+    {
+        logerror("Realm server attempted to transfer a file, but didn't init!");
+        DieOrReconnect(false);
+        return;
+    }
 
+    uint8 cmd;
+    uint16 size;
+    uint8 *data;
+
+    _transbuf.append(pkt.contents(),pkt.size()); // append everything to the transfer buffer, which may also store incomplete bytes from the packet before
+    pkt.rpos(pkt.size()); // set rpos to the end of the packet to indicate that we used all data
+
+    logdev("transbuf size=%u rpos=%u diff=%u",_transbuf.size(),_transbuf.rpos(),_transbuf.size() - _transbuf.rpos());
+
+    while( _transbuf.size() - _transbuf.rpos() >= 3) // 3 = sizeof(uint32)+sizeof(uint8)
+    {
+        _transbuf >> cmd >> size;
+        if(_transbuf.size()-_transbuf.rpos() < size)
+        {
+            _transbuf.rpos(_transbuf.rpos()-3); // read the header next time again
+            break; // packet parts missing, continue after recieving next packet
+        }
+        data = new uint8[size];
+        _transbuf.read(data,size);
+        _filebuf.append(data,size);
+        _file_done += size;
+        delete [] data;
+        float pct = ((float)_file_done / (float)_file_size * 100.0f);
+
+        // use better output formatting in debug level
+        if(GetInstance()->GetConf()->debug >= 2)
+            logdebug("Got data packet, %u data bytes. [%.2f%% done]  cmd 0x%X",size,pct,cmd);
+        else
+        {
+            _log_setcolor(true,GREEN);
+            printf("\r[%.2f%% done]",pct);
+            _log_resetcolor(true);
+        }
+
+    }
+
+    // finalize file
+    if(_file_done >= _file_size)
+    {
+        log("");
+        log("File transfer finished.");
+        _filetransfer = false;
+        MD5Hash md5h;
+        md5h.Update((uint8*)_filebuf.contents(),_filebuf.size());
+        md5h.Finalize();
+        std::string md5hex = toHexDump(md5h.GetDigest(),md5h.GetLength(),false);
+        logdebug("MD5 hash: %s", md5hex.c_str());
+        if(!memcmp(_file_md5, md5h.GetDigest(), md5h.GetLength()))
+        {
+            std::fstream fh;
+            char namebuf[100];
+            sprintf(namebuf,"%u_%s.mpq",GetInstance()->GetConf()->clientbuild,GetInstance()->GetConf()->clientlang.c_str());
+            fh.open(namebuf,std::ios_base::out | std::ios_base::binary);
+            if(fh.is_open())
+            {
+                fh.write((const char*)_filebuf.contents(),_filebuf.size());
+                fh.close();
+                log("File saved as \"%s\"",namebuf);
+            }
+            else
+            {
+                logerror("Could not save \"%s\"",namebuf);
+            }
+        }
+        else
+        {
+            logerror("File corruption! Transfer failed! (MD5: %s",md5hex.c_str());
+        }
+        _transbuf.clear();
+
+        // client sends cancel after successful file transfer also
+        ByteBuffer bb(1);
+        bb << uint8(XFER_CANCEL);
+        SendRealmPacket(bb);
+
+        log("Now modify your conf files and restart PseuWoW.");
+        for(int8 x = 3; x > -1; x--) // add little delay
+        {
+            printf("exiting in... [%u]\r",x);
+            GetInstance()->Sleep(1000);
+        }
+        SetMustDie();
+        GetInstance()->Stop();
+    }
 }
 
 void RealmSession::DumpInvalidPacket(ByteBuffer& pkt)

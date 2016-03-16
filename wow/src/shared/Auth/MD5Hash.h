@@ -3,18 +3,18 @@
 
 #define MD5_DIGEST_LENGTH 16
 
-#include "md5.h"
+#include "Auth/md5.h"
 
 class MD5Hash
 {
 public:
     MD5Hash()
     {
-        md5init(&_state);
+        md5_init(&_state);
         memset(_digest,0,MD5_DIGEST_LENGTH);
     }
 
-
+    
     void Update(uint8 *buf,uint32 len)
     {
         md5_append(&_state,buf,len);

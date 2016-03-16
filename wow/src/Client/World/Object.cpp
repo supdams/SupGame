@@ -9,7 +9,7 @@ Object::Object()
     _uint32values=NULL;
     _type=TYPE_OBJECT;
     _typeid=TYPEID_OBJECT;
-    _valuescount=Object::maxvalues[_typeid]; // base class. this value will be set by derived classes
+    _valuescount=OBJECT_END; // base class. this value will be set by derived classes
 }
 
 Object::~Object()
@@ -110,12 +110,19 @@ void WorldSession::_HandleDestroyObjectOpcode(WorldPacket& recvPacket)
     uint64 guid;
     uint8 dummy;
 
-    recvPacket >> guid;
-    if(GetInstance()->GetConf()->client > CLIENT_TBC)
-      recvPacket >> dummy;
+    recvPacket >> guid >> dummy;
     logdebug("Destroy Object "I64FMT,guid);
 
-
+    // call script just before object removal
+    if(GetInstance()->GetScripts()->ScriptExists("_onobjectdelete"))
+    {
+        Object *o = objmgr.GetObj(guid);
+        CmdSet Set;
+        Set.defaultarg = toString(guid);
+        Set.arg[0] = o ? toString(o->GetTypeId()) : "";
+        Set.arg[1] = "false"; // out of range = false
+        GetInstance()->GetScripts()->RunScript("_onobjectdelete", &Set);
+    }
 
     objmgr.Remove(guid, false);
 }
