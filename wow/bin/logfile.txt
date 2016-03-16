@@ -1,0 +1,98 @@
+2016-03-16 04:43:07 +----------------------------------+
+2016-03-16 04:43:07 | (C) 2006-2009 Snowstorm Software |
+2016-03-16 04:43:07 |  http://www.mangosclient.org     |
+2016-03-16 04:43:07 +----------------------------------+
+2016-03-16 04:43:07 Platform: Win32
+2016-03-16 04:43:07 Compiler: VC90 (1600)
+2016-03-16 04:43:07 Compiled: Mar 16 2016  02:35:20
+2016-03-16 04:43:07 
+2016-03-16 04:43:07 --- Initializing Instance ---
+2016-03-16 04:43:07 *** DefScript StartUp [A13.51]...
+2016-03-16 04:43:07 *** Loading 14 script files.
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_chat.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_chatAI.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_eventstubs.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_func.def]
+2016-03-16 04:43:07 * Loading core scripts...
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_funstuff.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_hookHelper.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_internal.def]
+2016-03-16 04:43:07 * Loading core scripts (internal config)...
+2016-03-16 04:43:07 ** Configuring PseuWoW...
+2016-03-16 04:43:07 * Loading 4 conf files.
+2016-03-16 04:43:07 * Loading conf file [ PseuWoW.conf ]
+2016-03-16 04:43:07 * Loading conf file [ ScriptConfig.conf ]
+2016-03-16 04:43:07 * Loading conf file [ gui.conf ]
+2016-03-16 04:43:07 * Loading conf file [ users.conf ]
+2016-03-16 04:43:07 MemoryDataHolder: Using 2 threads.
+2016-03-16 04:43:07 * Configuration applied.
+2016-03-16 04:43:07 * Cleaning up variables...
+2016-03-16 04:43:07 * Dangerous variables removed.
+2016-03-16 04:43:07 * Assigning permissions for internal functions...
+2016-03-16 04:43:07 ** All Config done.
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_list_extensions.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_misc.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/__core_wrappers.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/autobroadcast.def]
+2016-03-16 04:43:07 ** AutoBroadcast: skipped loading.
+2016-03-16 04:43:07 * Loading script file [./scripts/database_loader.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/help.def]
+2016-03-16 04:43:07 * Loading script file [./scripts/uptime.def]
+2016-03-16 04:43:07 *** All files loaded without errors.
+2016-03-16 04:43:07 *** StartUp complete!
+2016-03-16 04:43:07 ** Loading / dyncompiling databases...
+2016-03-16 04:43:07 Loading database 'race'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/race.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/race.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/race.ccp' -> race
+2016-03-16 04:43:07 Loading database 'class'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/class.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/class.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/class.ccp' -> class
+2016-03-16 04:43:07 Loading database 'gender'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/gender.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/gender.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/gender.ccp' -> gender
+2016-03-16 04:43:07 Loading database 'language'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/language.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/language.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/language.ccp' -> language
+2016-03-16 04:43:07 Loading database 'map'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/map.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/map.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/map.ccp' -> map
+2016-03-16 04:43:07 Loading database 'zone'
+2016-03-16 04:43:07 SCP: No files found that contain database [zone]
+2016-03-16 04:43:07 Loading database 'creaturedisplayinfo'
+2016-03-16 04:43:07 SCP: No files found that contain database [creaturedisplayinfo]
+2016-03-16 04:43:07 Loading database 'creaturemodeldata'
+2016-03-16 04:43:07 SCP: No files found that contain database [creaturemodeldata]
+2016-03-16 04:43:07 Loading database 'gameobjectdisplayinfo'
+2016-03-16 04:43:07 SCP: No files found that contain database [gameobjectdisplayinfo]
+2016-03-16 04:43:07 Loading database 'sound'
+2016-03-16 04:43:07 SCP: No files found that contain database [sound]
+2016-03-16 04:43:07 Loading database 'gui_login_text'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/gui_login_text.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/gui_login_text.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/gui_login_text.ccp' -> gui_login_text
+2016-03-16 04:43:07 Loading database 'gui_charselect_text'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/gui_charselect_text.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/gui_charselect_text.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/gui_charselect_text.ccp' -> gui_charselect_text
+2016-03-16 04:43:07 Loading database 'generic_text'
+2016-03-16 04:43:07 Loading pre-compacted database './cache/generic_text.ccp'
+2016-03-16 04:43:07 MD5-check: './data/scp/generic_text.scp' -> OK
+2016-03-16 04:43:07 Loaded './cache/generic_text.ccp' -> generic_text
+2016-03-16 04:43:07 ** Databases loaded.
+2016-03-16 04:43:07 RemoteController: listening on port 8101
+2016-03-16 04:43:07 Starting CLI...
+2016-03-16 04:43:07 Init complete.
+2016-03-16 04:43:07 PseuInstance: Initialized and running!
+2016-03-16 04:43:07 GUI not active or Login data pre-entered, skipping Login GUI
+2016-03-16 04:43:08 PseuInstance: Connecting to Realm failed!
+2016-03-16 04:43:14 Connecting to Realm failed!
+2016-03-16 04:43:14 RealmSession: Must die now.
+2016-03-16 04:43:14 Waiting 5000 ms before reconnecting.
+2016-03-16 04:43:21 PseuInstance: Connecting to Realm failed!
+2016-03-16 04:43:22 Terminating all instances... [1]
+
