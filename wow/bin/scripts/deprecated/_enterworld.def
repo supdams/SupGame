@@ -1,0 +1,36 @@
+#permission=255
+
+// PSEUWOW DEF_SCRIPT WORLD-ENTER FILE
+
+LOG * World entered, executing appropriate script...
+
+// MaNGOS: make PseuWoW invincible
+// CMD gmon
+
+// you can also teleport on every startup to a certain player...
+// simple: use the .goname command as usual.
+// SAY .goname Gamemaster
+// or teleport to a specific loacation...
+// CMD tele gmisland
+
+// to know everything worked fine, etc
+SAY [${@version_short}] login successful.
+
+// yaay we are online. Ready!
+// 126 = TEXTEMOTE_READY
+EMOTE 126
+
+// join some channels...
+JOINCHANNEL General
+JOINCHANNEL LookingForGroup
+// and a custom channel
+JOINCHANNEL generlachat
+
+// Spell 836 = LoginEffect
+CASTSPELL 836
+
+// add your own stuff here
+// ...
+
+
+LOG * finished executing script.

@@ -1,0 +1,477 @@
+#dbname=map
+[0]
+name_general=Azeroth
+name=Eastern Kingdoms
+
+[1]
+name_general=Kalimdor
+name=Kalimdor
+
+[13]
+name_general=test
+name=Testing
+
+[25]
+name_general=ScottTest
+name=Scott Test
+
+[29]
+name_general=Test
+name=CashTest
+
+[30]
+name_general=PVPZone01
+name=Alterac Valley
+
+[33]
+name_general=Shadowfang
+name=Shadowfang Keep
+
+[34]
+name_general=StormwindJail
+name=Stormwind Stockade
+
+[35]
+name_general=StormwindPrison
+name=<unused>StormwindPrison
+
+[36]
+name_general=DeadminesInstance
+name=Deadmines
+
+[37]
+name_general=PVPZone02
+name=Azshara Crater
+
+[42]
+name_general=Collin
+name=Collin's Test
+
+[43]
+name_general=WailingCaverns
+name=Wailing Caverns
+
+[44]
+name_general=Monastery
+name=<unused> Monastery
+
+[47]
+name_general=RazorfenKraulInstance
+name=Razorfen Kraul
+
+[48]
+name_general=Blackfathom
+name=Blackfathom Deeps
+
+[70]
+name_general=Uldaman
+name=Uldaman
+
+[90]
+name_general=GnomeragonInstance
+name=Gnomeregan
+
+[109]
+name_general=SunkenTemple
+name=Sunken Temple
+
+[129]
+name_general=RazorfenDowns
+name=Razorfen Downs
+
+[169]
+name_general=EmeraldDream
+name=Emerald Dream
+
+[189]
+name_general=MonasteryInstances
+name=Scarlet Monastery
+
+[209]
+name_general=TanarisInstance
+name=Zul'Farrak
+
+[229]
+name_general=BlackRockSpire
+name=Blackrock Spire
+
+[230]
+name_general=BlackrockDepths
+name=Blackrock Depths
+
+[249]
+name_general=OnyxiaLairInstance
+name=Onyxia's Lair
+
+[269]
+name_general=CavernsOfTime
+name=Opening of the Dark Portal
+
+[289]
+name_general=SchoolofNecromancy
+name=Scholomance
+
+[309]
+name_general=Zul'gurub
+name=Zul'Gurub
+
+[329]
+name_general=Stratholme
+name=Stratholme
+
+[349]
+name_general=Mauradon
+name=Maraudon
+
+[369]
+name_general=DeeprunTram
+name=Deeprun Tram
+
+[389]
+name_general=OrgrimmarInstance
+name=Ragefire Chasm
+
+[409]
+name_general=MoltenCore
+name=Molten Core
+
+[429]
+name_general=DireMaul
+name=Dire Maul
+
+[449]
+name_general=AlliancePVPBarracks
+name=Alliance PVP Barracks
+
+[450]
+name_general=HordePVPBarracks
+name=Horde PVP Barracks
+
+[451]
+name_general=development
+name=Development Land
+
+[469]
+name_general=BlackwingLair
+name=Blackwing Lair
+
+[489]
+name_general=PVPZone03
+name=Warsong Gulch
+
+[509]
+name_general=AhnQiraj
+name=Ruins of Ahn'Qiraj
+
+[529]
+name_general=PVPZone04
+name=Arathi Basin
+
+[530]
+name_general=Expansion01
+name=Outland
+
+[531]
+name_general=AhnQirajTemple
+name=Ahn'Qiraj Temple
+
+[532]
+name_general=Karazahn
+name=Karazhan
+
+[533]
+name_general=Stratholme Raid
+name=Naxxramas
+
+[534]
+name_general=HyjalPast
+name=The Battle for Mount Hyjal
+
+[540]
+name_general=HellfireMilitary
+name=Hellfire Citadel: The Shattered Halls
+
+[542]
+name_general=HellfireDemon
+name=Hellfire Citadel: The Blood Furnace
+
+[543]
+name_general=HellfireRampart
+name=Hellfire Citadel: Ramparts
+
+[544]
+name_general=HellfireRaid
+name=Magtheridon's Lair
+
+[545]
+name_general=CoilfangPumping
+name=Coilfang: The Steamvault
+
+[546]
+name_general=CoilfangMarsh
+name=Coilfang: The Underbog
+
+[547]
+name_general=CoilfangDraenei
+name=Coilfang: The Slave Pens
+
+[548]
+name_general=CoilfangRaid
+name=Coilfang: Serpentshrine Cavern
+
+[550]
+name_general=TempestKeepRaid
+name=Tempest Keep
+
+[552]
+name_general=TempestKeepArcane
+name=Tempest Keep: The Arcatraz
+
+[553]
+name_general=TempestKeepAtrium
+name=Tempest Keep: The Botanica
+
+[554]
+name_general=TempestKeepFactory
+name=Tempest Keep: The Mechanar
+
+[555]
+name_general=AuchindounShadow
+name=Auchindoun: Shadow Labyrinth
+
+[556]
+name_general=AuchindounDemon
+name=Auchindoun: Sethekk Halls
+
+[557]
+name_general=AuchindounEthereal
+name=Auchindoun: Mana-Tombs
+
+[558]
+name_general=AuchindounDraenei
+name=Auchindoun: Auchenai Crypts
+
+[559]
+name_general=PVPZone05
+name=Nagrand Arena
+
+[560]
+name_general=HillsbradPast
+name=The Escape From Durnholde
+
+[562]
+name_general=bladesedgearena
+name=Blade's Edge Arena
+
+[564]
+name_general=BlackTemple
+name=Black Temple
+
+[565]
+name_general=GruulsLair
+name=Gruul's Lair
+
+[566]
+name_general=NetherstormBG
+name=Eye of the Storm
+
+[568]
+name_general=ZulAman
+name=Zul'Aman
+
+[571]
+name_general=Northrend
+name=Northrend
+
+[572]
+name_general=PVPLordaeron
+name=Ruins of Lordaeron
+
+[573]
+name_general=ExteriorTest
+name=ExteriorTest
+
+[574]
+name_general=Valgarde70
+name=Utgarde Keep
+
+[575]
+name_general=UtgardePinnacle
+name=Utgarde Pinnacle
+
+[576]
+name_general=Nexus70
+name=The Nexus
+
+[578]
+name_general=Nexus80
+name=The Oculus
+
+[580]
+name_general=SunwellPlateau
+name=The Sunwell
+
+[582]
+name_general=Transport176244
+name=Transport: Rut'theran to Auberdine
+
+[584]
+name_general=Transport176231
+name=Transport: Menethil to Theramore
+
+[585]
+name_general=Sunwell5ManFix
+name=Magister's Terrace
+
+[586]
+name_general=Transport181645
+name=Transport: Exodar to Auberdine
+
+[587]
+name_general=Transport177233
+name=Transport: Feathermoon Ferry
+
+[588]
+name_general=Transport176310
+name=Transport: Menethil to Auberdine
+
+[589]
+name_general=Transport175080
+name=Transport: Orgrimmar to Grom'Gol
+
+[590]
+name_general=Transport176495
+name=Transport: Grom'Gol to Undercity
+
+[591]
+name_general=Transport164871
+name=Transport: Undercity to Orgrimmar
+
+[592]
+name_general=Transport186238
+name=Transport: Borean Tundra Test
+
+[593]
+name_general=Transport20808
+name=Transport: Booty Bay to Ratchet
+
+[594]
+name_general=Transport187038
+name=Transport: Howling Fjord Sister Mercy (Quest)
+
+[595]
+name_general=StratholmeCOT
+name=The Culling of Stratholme
+
+[596]
+name_general=Transport187263
+name=Transport: Naglfar
+
+[597]
+name_general=CraigTest
+name=Craig Test
+
+[598]
+name_general=Sunwell5Man
+name=Sunwell Fix (Unused)
+
+[599]
+name_general=Ulduar70
+name=Halls of Stone
+
+[600]
+name_general=DrakTheronKeep
+name=Drak'Tharon Keep
+
+[601]
+name_general=Azjol_Uppercity
+name=Azjol-Nerub
+
+[602]
+name_general=Ulduar80
+name=Halls of Lightning
+
+[603]
+name_general=UlduarRaid
+name=Ulduar
+
+[604]
+name_general=GunDrak
+name=Gundrak
+
+[605]
+name_general=development_nonweighted
+name=Development Land (non-weighted textures)
+
+[606]
+name_general=QA_DVD
+name=QA and DVD
+
+[607]
+name_general=NorthrendBG
+name=Strand of the Ancients
+
+[608]
+name_general=DalaranPrison
+name=Violet Hold
+
+[609]
+name_general=DeathKnightStart
+name=Ebon Hold
+
+[610]
+name_general=Transport_Tirisfal _Vengeance_Landing
+name=Transport: Tirisfal to Vengeance Landing
+
+[612]
+name_general=Transport_Menethil_Valgarde
+name=Transport: Menethil to Valgarde
+
+[613]
+name_general=Transport_Orgrimmar_Warsong_Hold
+name=Transport: Orgrimmar to Warsong Hold
+
+[614]
+name_general=Transport_Stormwind_Valiance_Keep
+name=Transport: Stormwind to Valiance Keep
+
+[615]
+name_general=ChamberOfAspectsBlack
+name=The Obsidian Sanctum
+
+[616]
+name_general=NexusRaid
+name=The Eye of Eternity
+
+[617]
+name_general=DalaranArena
+name=Dalaran Sewers
+
+[618]
+name_general=OrgrimmarArena
+name=The Ring of Valor
+
+[619]
+name_general=Azjol_LowerCity
+name=Ahn'kahet: The Old Kingdom
+
+[620]
+name_general=Transport_Moa'ki_Unu'pe
+name=Transport: Moa'ki to Unu'pe
+
+[621]
+name_general=Transport_Moa'ki_Kamagua
+name=Transport: Moa'ki to Kamagua
+
+[622]
+name_general=Transport192241
+name=Transport: Orgrim's Hammer
+
+[623]
+name_general=Transport192242
+name=Transport: The Skybreaker
+
+[624]
+name_general=WintergraspRaid
+name=Vault of Archavon
+

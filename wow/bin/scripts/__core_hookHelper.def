@@ -1,0 +1,150 @@
+
+#script=hookhelper
+#onload
+set,CurScript
+#/onload
+
+#script=IsHooked
+// @def: script name
+// [@0: hook name / name of script that hooked script in @def]
+set,sc ${@0}
+default,sc ${@caller}
+return ?{ScriptHasLine,{${@def}} #tag:hook:${sc}}
+
+#script=HookStart
+// @def: script name
+// [@0: calling script]
+set,c ${@0}
+default,c ${@caller}
+appenddef,{${@def}} #tag:hook:${c}
+set,{#hookhelper::CurScript} ${@def}
+
+#script=HookEnd
+// [@def: name of script that was hooked]
+// [@0: name of calling script]
+set,sc ${@def}
+default,sc ${#hookhelper::CurScript}
+set,c ${@0}
+default,c ${@caller}
+appenddef,{${sc}} #tag:hook-end
+set,#hookhelper::CurScript
+unset ${sc}
+unset sc
+
+#script=HookAdd
+// @def: script line
+// [@0: script name. default: last script passed to HookStart]
+set,sc ${@0}
+default,sc ${#hookhelper::CurScript}
+if ?{not ?{strlen ${sc}}}
+	return
+endif
+appenddef,{${sc}} ${@def}
+unset sc
+
+#script=HookAddList
+// @def: list name
+// [@0: script name. default: last script passed to HookStart]
+// [@1: name of calling script]
+set,sc ${@0}
+set,c ${@1}
+default,c ${@caller}
+set,l ?{globname,{${c}} ${@def}}
+default,sc ${#hookhelper::CurScript}
+if ?{not ?{strlen ${sc}}}
+	return
+endif
+set,i 0
+loop
+	if ?{bigger_eq,${i} ?{llen ${l}}}
+		exitloop
+	endif
+	HookAdd,{${sc}} ?{lindex,{${l}} ${i}}
+	add,i 1
+endloop
+unset sc
+
+#script=HookStartOpcode
+// @def: opcode name
+// [@0: calling script]
+set,c ${@0}
+default,c ${@caller}
+HookStart,{${c}} OPCODE::${@def}
+
+#script=UnHook
+// @def: name of script where to remove hook from
+// [@0: hook name (usually name of script that installed the hook). default: name of calling script]
+set,target ?{lowercase ${@def}}
+if ?{not ?{scriptexists ${target}}}
+	logerror UnHook called for nonexisting script '${target}' by '${@caller}'
+endif
+set,sc ${@0}
+default,sc ${@caller}
+set,sc ?{lowercase ${sc}}
+set,sl ?{sclistname ${target}}
+set,hn #tag:hook:${sc}
+set,hne #tag:hook-end
+//logdebug -- sl='${sl}' hn='${hn}' hne='${hne}'
+loop
+	if ?{not ?{IsHooked,{${sc}} ${target}}}
+		//logdebug -- unhook done
+		exitloop
+	endif
+	set,p ?{lfind,{${sl}} ${hn}}
+	set,line ?{lindex,{${sl}} ${p}}
+	//logdebug -- line[${p}] = ${line}
+	if ?{strlen ${p}} // p is empty string if the line wasnt found
+		loop
+			set,line2 ?{lerase,{${sl}} ${p}}
+			//logdebug -- removed: '${line2}'
+			if ?{equal,{${line2}} ${hne}}
+				exitloop
+			endif
+		endloop
+	endif
+endloop
+unset sl
+unset hn
+unset hne
+unset sc
+
+#script=UnHookOpcode
+// @def: opcode name
+// [@0: name of calling script]
+set,sc ${@0}
+default,sc ${@caller}
+UnHook,{${sc}} OPCODE::${@def}
+
+#script=UnHookAll
+// @def: name of script to remove all hooks from
+// [@0: name of calling script]
+set,sc ${@0}
+set,sl ?{sclistname ${@def}}
+set,hn #tag:hook:
+set,hne #tag:hook-end
+set,i 0
+set,hookcode false
+loop
+	set,erased false
+	if ?{bigger_eq,${i} ?{llen ${sl}}}
+		exitloop
+	endif
+	set,line ?{lindex,{${sl}} ${i}}
+	if ?{equal,{${hn}} ?{substr,?{strlen ${hn}} ${line}}}
+		set,hookcode true
+	else
+		if ?{equal,{${hne}} ?{substr,?{strlen ${hn}} ${line}}}
+			lerase,{${sl}} ${i}
+			set,hookcode false
+			set,erased true
+		endif
+	endif
+	
+	if ${hookcode}
+		lerase,{${sl}} ${i}
+		set,erased true
+	endif
+	if ?{not ${erased}}
+		add,i 1
+	endif
+endloop
