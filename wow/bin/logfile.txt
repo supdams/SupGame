@@ -96,3 +96,116 @@
 2016-03-16 04:43:21 PseuInstance: Connecting to Realm failed!
 2016-03-16 04:43:22 Terminating all instances... [1]
 
+2016-03-17 17:20:17 +----------------------------------+
+2016-03-17 17:20:17 | (C) 2006-2009 Snowstorm Software |
+2016-03-17 17:20:17 |  http://www.mangosclient.org     |
+2016-03-17 17:20:17 +----------------------------------+
+2016-03-17 17:20:17 Platform: Win32
+2016-03-17 17:20:17 Compiler: VC90 (1600)
+2016-03-17 17:20:17 Compiled: Mar 16 2016  05:16:35
+2016-03-17 17:20:17 
+2016-03-17 17:20:17 --- Initializing Instance ---
+2016-03-17 17:20:17 *** DefScript StartUp [A13.51]...
+2016-03-17 17:20:17 *** Loading 14 script files.
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_chat.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_chatAI.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_eventstubs.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_func.def]
+2016-03-17 17:20:17 * Loading core scripts...
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_funstuff.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_hookHelper.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_internal.def]
+2016-03-17 17:20:17 * Loading core scripts (internal config)...
+2016-03-17 17:20:17 ** Configuring PseuWoW...
+2016-03-17 17:20:17 * Loading 4 conf files.
+2016-03-17 17:20:17 * Loading conf file [ PseuWoW.conf ]
+2016-03-17 17:20:17 * Loading conf file [ ScriptConfig.conf ]
+2016-03-17 17:20:17 * Loading conf file [ gui.conf ]
+2016-03-17 17:20:17 * Loading conf file [ users.conf ]
+2016-03-17 17:20:17 MemoryDataHolder: Using 2 threads.
+2016-03-17 17:20:17 * Configuration applied.
+2016-03-17 17:20:17 * Cleaning up variables...
+2016-03-17 17:20:17 * Dangerous variables removed.
+2016-03-17 17:20:17 * Assigning permissions for internal functions...
+2016-03-17 17:20:17 ** All Config done.
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_list_extensions.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_misc.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/__core_wrappers.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/autobroadcast.def]
+2016-03-17 17:20:17 ** AutoBroadcast: skipped loading.
+2016-03-17 17:20:17 * Loading script file [./scripts/database_loader.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/help.def]
+2016-03-17 17:20:17 * Loading script file [./scripts/uptime.def]
+2016-03-17 17:20:17 *** All files loaded without errors.
+2016-03-17 17:20:17 *** StartUp complete!
+2016-03-17 17:20:17 ** Loading / dyncompiling databases...
+2016-03-17 17:20:17 Loading database 'race'
+2016-03-17 17:20:17 File './data/scp/race.scp' matching database 'race', loading
+2016-03-17 17:20:17 21 sections loaded
+2016-03-17 17:20:17 Compacting database 'race' into file './cache/race.ccp'
+2016-03-17 17:20:17 Database 'race' loaded from source and compacted with compression 6
+2016-03-17 17:20:17 Loading database 'class'
+2016-03-17 17:20:17 File './data/scp/class.scp' matching database 'class', loading
+2016-03-17 17:20:17 11 sections loaded
+2016-03-17 17:20:17 Compacting database 'class' into file './cache/class.ccp'
+2016-03-17 17:20:17 Database 'class' loaded from source and compacted with compression 6
+2016-03-17 17:20:17 Loading database 'gender'
+2016-03-17 17:20:17 File './data/scp/gender.scp' matching database 'gender', loading
+2016-03-17 17:20:17 3 sections loaded
+2016-03-17 17:20:17 Compacting database 'gender' into file './cache/gender.ccp'
+2016-03-17 17:20:17 Database 'gender' loaded from source and compacted with compression 6
+2016-03-17 17:20:17 Loading database 'language'
+2016-03-17 17:20:17 File './data/scp/language.scp' matching database 'language', loading
+2016-03-17 17:20:17 14 sections loaded
+2016-03-17 17:20:17 Compacting database 'language' into file './cache/language.ccp'
+2016-03-17 17:20:17 Database 'language' loaded from source and compacted with compression 6
+2016-03-17 17:20:17 Loading database 'map'
+2016-03-17 17:20:17 File './data/scp/map.scp' matching database 'map', loading
+2016-03-17 17:20:17 119 sections loaded
+2016-03-17 17:20:17 Compacting database 'map' into file './cache/map.ccp'
+2016-03-17 17:20:17 Database 'map' loaded from source and compacted with compression 6
+2016-03-17 17:20:17 Loading database 'zone'
+2016-03-17 17:20:17 SCP: No files found that contain database [zone]
+2016-03-17 17:20:17 Loading database 'creaturedisplayinfo'
+2016-03-17 17:20:17 SCP: No files found that contain database [creaturedisplayinfo]
+2016-03-17 17:20:17 Loading database 'creaturemodeldata'
+2016-03-17 17:20:17 SCP: No files found that contain database [creaturemodeldata]
+2016-03-17 17:20:17 Loading database 'gameobjectdisplayinfo'
+2016-03-17 17:20:17 SCP: No files found that contain database [gameobjectdisplayinfo]
+2016-03-17 17:20:17 Loading database 'sound'
+2016-03-17 17:20:17 SCP: No files found that contain database [sound]
+2016-03-17 17:20:17 Loading database 'gui_login_text'
+2016-03-17 17:20:18 File './data/scp/gui_login_text.scp' matching database 'gui_login_text', loading
+2016-03-17 17:20:18 4 sections loaded
+2016-03-17 17:20:18 Compacting database 'gui_login_text' into file './cache/gui_login_text.ccp'
+2016-03-17 17:20:18 Database 'gui_login_text' loaded from source and compacted with compression 6
+2016-03-17 17:20:18 Loading database 'gui_charselect_text'
+2016-03-17 17:20:18 File './data/scp/gui_charselect_text.scp' matching database 'gui_charselect_text', loading
+2016-03-17 17:20:18 3 sections loaded
+2016-03-17 17:20:18 Compacting database 'gui_charselect_text' into file './cache/gui_charselect_text.ccp'
+2016-03-17 17:20:18 Database 'gui_charselect_text' loaded from source and compacted with compression 6
+2016-03-17 17:20:18 Loading database 'generic_text'
+2016-03-17 17:20:18 File './data/scp/generic_text.scp' matching database 'generic_text', loading
+2016-03-17 17:20:18 1 sections loaded
+2016-03-17 17:20:18 Compacting database 'generic_text' into file './cache/generic_text.ccp'
+2016-03-17 17:20:18 Database 'generic_text' loaded from source and compacted with compression 6
+2016-03-17 17:20:18 ** Databases loaded.
+2016-03-17 17:20:18 GUI settings: driver=3, depth=32, res=1024x768, windowed=1, shadows=1 sound=1
+2016-03-17 17:20:18 PseuGUI: not initialized, using non-GUI mode
+2016-03-17 17:20:18 GUI: Init successful.
+2016-03-17 17:20:18 PseuGUI::~PseuGUI()
+2016-03-17 17:20:18 RemoteController: listening on port 8101
+2016-03-17 17:20:18 Starting CLI...
+2016-03-17 17:20:18 Init complete.
+2016-03-17 17:20:18 PseuInstance: Initialized and running!
+2016-03-17 17:20:18 GUI not active or Login data pre-entered, skipping Login GUI
+2016-03-17 17:20:19 PseuInstance: Connecting to Realm failed!
+2016-03-17 17:20:24 Connecting to Realm failed!
+2016-03-17 17:20:24 RealmSession: Must die now.
+2016-03-17 17:20:24 Waiting 5000 ms before reconnecting.
+2016-03-17 17:20:35 PseuInstance: Connecting to Realm failed!
+2016-03-17 17:20:36 Connecting to Realm failed!
+2016-03-17 17:20:36 RealmSession: Must die now.
+2016-03-17 17:20:36 Waiting 5000 ms before reconnecting.
+2016-03-17 17:20:37 Terminating all instances... [1]
+
