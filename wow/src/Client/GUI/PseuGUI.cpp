@@ -5,6 +5,14 @@
 #include "PseuWoW.h"
 #include "Scene.h"
 #include "PseuGUI.h"
+#include "SDL/SDL.h"
+#include <SDL/SDL_Image.h>
+#include <SDL/SDL_ttf.h>
+//#include <SDL/SDL_Image.h>
+//#include <SDL/SDL_ttf.h>
+
+
+#include "fonction.h"
 
 PseuGUIRunnable::PseuGUIRunnable()
 {
@@ -57,18 +65,9 @@ PseuGUI::~PseuGUI()
 
 void PseuGUI::SetDriver(uint8 driverId)
 {
-	/*
-    switch(driverId)
-    {
-    case DIRECTX9:      _driverType = video::EDT_DIRECT3D9;     break;
-    case DIRECTX8:      _driverType = video::EDT_DIRECT3D8;     break;
-    case OPENGL:        _driverType = video::EDT_OPENGL;        break;
-    case SOFTWARE:      _driverType = video::EDT_SOFTWARE;      break;
-    case BURNINGSVIDEO: _driverType = video::EDT_BURNINGSVIDEO; break;
-    case NULLDEVICE:    _driverType = video::EDT_NULL;          break;
-    default:            _driverType = video::EDT_BURNINGSVIDEO; // if no valid driver detected, use software
-    }
-	*/
+	
+
+	
     // TODO: add support for changing driver during runtime?
 }
 
@@ -115,7 +114,61 @@ void PseuGUI::_Init(void)
         }
     }
 	*/
-    DEBUG(logdebug("PseuGUI::Init() "));
+
+	
+	if( SDL_Init(SDL_INIT_VIDEO) < 0 ) {
+			logerror("Couldn't initialize SDL: %s\n", SDL_GetError());
+	//	exit(1);
+	}
+
+
+
+
+
+	if (TTF_Init() < 0)
+	{
+		logerror("Couldn't initialize SDL TTF: %s\n", SDL_GetError());
+	//	exit(1);
+	}
+
+
+
+	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+	SDL_Surface *bouton = NULL, *bouton2 = NULL;
+/*
+	font[0] = loadFont("./font/Kraash_Black.ttf", 48);
+	font[1] = loadFont("./font/GenBasB.ttf", 24);
+	font[2] = loadFont("./font/Super_Mario_Bros.ttf", 32);
+	font[3] = loadFont("./font/MORPHEUS.TTF", 48);
+	font[4] = loadFont("./font/MORPHEUS.TTF", 18);
+	font[5] = loadFont("./font/GenBasB.TTF", 18);
+	font[6] = loadFont("./font/Kraash_Black.TTF", 16);
+	font[7] = loadFont("verdana.ttf", 16);
+	*/
+
+	/*
+	if (TTF_Init() < 0)
+	{
+		logerror("Couldn't initialize SDL TTF: %s\n", SDL_GetError());
+		exit(1);
+	}
+
+	SDL_Surface *bouton = NULL, *bouton2 = NULL;
+*/
+	/*
+	font[0] = loadFont("./font/Kraash_Black.ttf", 48);
+	font[1] = loadFont("./font/GenBasB.ttf", 24);
+	font[2] = loadFont("./font/Super_Mario_Bros.ttf", 32);
+	font[3] = loadFont("./font/MORPHEUS.TTF", 48);
+	font[4] = loadFont("./font/MORPHEUS.TTF", 18);
+	font[5] = loadFont("./font/GenBasB.TTF", 18);
+	font[6] = loadFont("./font/Kraash_Black.TTF", 16);
+	font[7] = loadFont("verdana.ttf", 16);
+	*/
+
+
+    logdebug("PseuGUI::Init() ");
+	_initialized = true;
  /*
 	_device->setWindowCaption(L"PseuWoW - Initializing");
     _device->setResizeAble(true);
@@ -137,6 +190,7 @@ void PseuGUI::_Init(void)
     //scene::CWMOMeshFileLoader* wmoloader = new scene::CWMOMeshFileLoader(_device, "./data/texture");
     //_smgr->addExternalMeshLoader(wmoloader);
 //    _throttle=0;
+
 //    _initialized = true;
 	/*
     // initialize the sound engine
@@ -236,12 +290,12 @@ void PseuGUI::Run(void)
             _scene->OnManualUpdate();
         }
 
-      //  _scene->OnUpdate(_passtimediff); // custom: process input, set camera, etc
+        _scene->OnUpdate(_passtimediff); // custom: process input, set camera, etc
       //  _driver->beginScene(true, true, _scene->GetBackgroundColor()); // irr: call driver to start drawing
-      //  _scene->OnDrawBegin(); // custom: draw everything before irrlicht draws everything by itself
+        _scene->OnDrawBegin(); // custom: draw everything before irrlicht draws everything by itself
         //_smgr->drawAll(); // irr: draw all scene nodes
         //_guienv->drawAll(); // irr: draw gui elements
-      //  _scene->OnDraw(); // custom: draw everything that has to be draw late (post-processing also belongs here)
+        _scene->OnDraw(); // custom: draw everything that has to be draw late (post-processing also belongs here)
         //_driver->endScene(); // irr: drawing done
        
 		/*
@@ -305,6 +359,9 @@ void PseuGUI::SetSceneState(SceneState state)
 
 void PseuGUI::_UpdateSceneState(void)
 {
+	/*
+   logdebug("void PseuGUI::_UpdateSceneState(void)");
+   
     if(_scenestate != _scenestate_new)
     {
         if(_scene)
@@ -313,8 +370,7 @@ void PseuGUI::_UpdateSceneState(void)
             delete _scene;
             _scene = NULL;
         }
-
-
+*/
 
 
         logdebug("PseuGUI: switching to SceneState %u", _scenestate_new);
@@ -341,7 +397,7 @@ void PseuGUI::_UpdateSceneState(void)
 
 
         logdebug("PseuGUI: scene created.");
-    }
+  //  }
 }
 
 bool PseuGUI::SetSceneData(uint32 index, uint32 value)
@@ -371,4 +427,37 @@ WorldPosition PseuGUI::GetWorldPosition(void)
     }
     return WorldPosition();
 }
+/*
+SDL_Surface *load_image(const char file[MAX_CHAINE])
+{
+    SDL_Surface *imgTemporaire = NULL;
+    SDL_Surface *imgNew = NULL;
 
+    imgTemporaire = IMG_Load(file);
+
+    if (imgTemporaire == NULL)
+    {
+        fprintf(stderr, "load_image Erreur avec %s\n--> %s\n" , file, IMG_GetError());
+        return NULL;
+    }
+
+    imgNew = SDL_DisplayFormatAlpha(imgTemporaire);
+
+    SDL_FreeSurface(imgTemporaire);
+
+    return imgNew;
+}
+
+TTF_Font *loadFont(char *name, int size)
+{
+	TTF_Font *font = TTF_OpenFont(name, size);
+
+	if (font == NULL)
+	{
+		printf("Failed to open Font %s: %s\n", name, TTF_GetError());
+		exit(1);
+	}
+
+	return font;
+}
+*/

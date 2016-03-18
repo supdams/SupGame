@@ -8,6 +8,7 @@ class Object;
 class PseuInstance;
 class Scene;
 
+
 enum SceneState
 {
     SCENESTATE_NULL = 0,
@@ -110,7 +111,6 @@ private:
     bool _updateScene; // manually update scene?
 
 };
-
 
 
 #endif

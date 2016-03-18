@@ -46,6 +46,11 @@ void Scene::OnDrawBegin(void)
 {
 }
 
+void Scene::OnUpdate(uint32 timepassed)
+{
+
+}
+
 
 
 Scene::~Scene()

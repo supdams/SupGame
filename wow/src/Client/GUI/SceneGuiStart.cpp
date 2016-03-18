@@ -2,10 +2,30 @@
 #include "PseuGUI.h"
 #include "PseuWoW.h"
 #include "Scene.h"
-
+#include "fonction.h"
 
 SceneGuiStart::SceneGuiStart(PseuGUI *gui) : Scene(gui)
 {
+	logdetail("@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	logdetail("SceneGuiStart::SceneGuiStart(PseuGUI *gui) : Scene(gui)");
+	logdetail("@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	
+    SDL_WM_SetCaption("SceneGuiStart", NULL);
+
+    SDL_Surface *ecran = NULL, *imageDeFond = NULL;
+    SDL_Rect positionFond;
+ 
+    positionFond.x = 0;
+    positionFond.y = 0;
+ 
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+ 
+    imageDeFond = load_image("data/misc/burninglogo.png");
+    SDL_BlitSurface(imageDeFond, NULL, ecran, &positionFond);
+ 
+ 
+    SDL_Flip(ecran);
+	
     /*
     irrlogo = guienv->addImage(driver->getTexture("data/misc/irrlichtlogo.png"), core::position2d<s32>(5,5));
     const char *fn;
@@ -28,6 +48,6 @@ SceneGuiStart::SceneGuiStart(PseuGUI *gui) : Scene(gui)
 }
 
 void SceneGuiStart::OnDelete(void)
-{
-    // not necessary to delete the images, because they are deleted by guienv->clear()
+{	
+
 }

@@ -10,6 +10,53 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dep\include\SDL\begin_code.h" />
+    <ClInclude Include="dep\include\SDL\close_code.h" />
+    <ClInclude Include="dep\include\SDL\SDL.h" />
+    <ClInclude Include="dep\include\SDL\SDL_active.h" />
+    <ClInclude Include="dep\include\SDL\SDL_audio.h" />
+    <ClInclude Include="dep\include\SDL\SDL_byteorder.h" />
+    <ClInclude Include="dep\include\SDL\SDL_cdrom.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_dreamcast.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_macos.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_macosx.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_minimal.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_nds.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_os2.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_symbian.h" />
+    <ClInclude Include="dep\include\SDL\SDL_config_win32.h" />
+    <ClInclude Include="dep\include\SDL\SDL_copying.h" />
+    <ClInclude Include="dep\include\SDL\SDL_cpuinfo.h" />
+    <ClInclude Include="dep\include\SDL\SDL_endian.h" />
+    <ClInclude Include="dep\include\SDL\SDL_error.h" />
+    <ClInclude Include="dep\include\SDL\SDL_events.h" />
+    <ClInclude Include="dep\include\SDL\SDL_getenv.h" />
+    <ClInclude Include="dep\include\SDL\SDL_image.h" />
+    <ClInclude Include="dep\include\SDL\SDL_joystick.h" />
+    <ClInclude Include="dep\include\SDL\SDL_keyboard.h" />
+    <ClInclude Include="dep\include\SDL\SDL_keysym.h" />
+    <ClInclude Include="dep\include\SDL\SDL_loadso.h" />
+    <ClInclude Include="dep\include\SDL\SDL_main.h" />
+    <ClInclude Include="dep\include\SDL\SDL_mixer.h" />
+    <ClInclude Include="dep\include\SDL\SDL_mouse.h" />
+    <ClInclude Include="dep\include\SDL\SDL_mutex.h" />
+    <ClInclude Include="dep\include\SDL\SDL_name.h" />
+    <ClInclude Include="dep\include\SDL\SDL_net.h" />
+    <ClInclude Include="dep\include\SDL\SDL_opengl.h" />
+    <ClInclude Include="dep\include\SDL\SDL_platform.h" />
+    <ClInclude Include="dep\include\SDL\SDL_quit.h" />
+    <ClInclude Include="dep\include\SDL\SDL_rwops.h" />
+    <ClInclude Include="dep\include\SDL\SDL_stdinc.h" />
+    <ClInclude Include="dep\include\SDL\SDL_syswm.h" />
+    <ClInclude Include="dep\include\SDL\SDL_thread.h" />
+    <ClInclude Include="dep\include\SDL\SDL_timer.h" />
+    <ClInclude Include="dep\include\SDL\SDL_ttf.h" />
+    <ClInclude Include="dep\include\SDL\SDL_types.h" />
+    <ClInclude Include="dep\include\SDL\SDL_version.h" />
+    <ClInclude Include="dep\include\SDL\SDL_video.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{81CE8DAF-EBB2-4761-8E45-B71ABCCA8C68}</ProjectGuid>
     <RootNamespace>SDL</RootNamespace>
@@ -108,120 +155,6 @@
       <Culture>0x0409</Culture>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="dep\src\SDL\SDL.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_active.c" />
-    <ClCompile Include="dep\src\SDL\audio\SDL_audio.c" />
-    <ClCompile Include="dep\src\SDL\audio\SDL_audiocvt.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_blit.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_blit_0.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_blit_1.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_blit_A.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_blit_N.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_bmp.c" />
-    <ClCompile Include="dep\src\SDL\cdrom\SDL_cdrom.c" />
-    <ClCompile Include="dep\src\SDL\cpuinfo\SDL_cpuinfo.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_cursor.c" />
-    <ClCompile Include="dep\src\SDL\audio\windib\SDL_dibaudio.c" />
-    <ClCompile Include="dep\src\SDL\video\windib\SDL_dibevents.c" />
-    <ClCompile Include="dep\src\SDL\video\windib\SDL_dibvideo.c" />
-    <ClCompile Include="dep\src\SDL\audio\disk\SDL_diskaudio.c" />
-    <ClCompile Include="dep\src\SDL\audio\dummy\SDL_dummyaudio.c" />
-    <ClCompile Include="dep\src\SDL\audio\windx5\SDL_dx5audio.c" />
-    <ClCompile Include="dep\src\SDL\video\Windx5\SDL_dx5events.c" />
-    <ClCompile Include="dep\src\SDL\video\Windx5\SDL_dx5video.c" />
-    <ClCompile Include="dep\src\SDL\video\windx5\SDL_dx5yuv.c" />
-    <ClCompile Include="dep\src\SDL\SDL_error.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_events.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_expose.c" />
-    <ClCompile Include="dep\src\SDL\SDL_fatal.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_gamma.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_getenv.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_iconv.c" />
-    <ClCompile Include="dep\src\SDL\joystick\SDL_joystick.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_keyboard.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_malloc.c" />
-    <ClCompile Include="dep\src\SDL\audio\SDL_mixer.c" />
-    <ClCompile Include="dep\src\SDL\audio\SDL_mixer_MMX_VC.c" />
-    <ClCompile Include="dep\src\SDL\joystick\win32\SDL_mmjoystick.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_mouse.c" />
-    <ClCompile Include="dep\src\SDL\video\dummy\SDL_nullevents.c" />
-    <ClCompile Include="dep\src\SDL\video\dummy\SDL_nullmouse.c" />
-    <ClCompile Include="dep\src\SDL\video\dummy\SDL_nullvideo.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_pixels.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_qsort.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_quit.c" />
-    <ClCompile Include="dep\src\SDL\events\SDL_resize.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_RLEaccel.c" />
-    <ClCompile Include="dep\src\SDL\file\SDL_rwops.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_stdlib.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_stretch.c" />
-    <ClCompile Include="dep\src\SDL\stdlib\SDL_string.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_surface.c" />
-    <ClCompile Include="dep\src\SDL\cdrom\win32\SDL_syscdrom.c" />
-    <ClCompile Include="dep\src\SDL\thread\generic\SDL_syscond.c" />
-    <ClCompile Include="dep\src\SDL\video\wincommon\SDL_sysevents.c" />
-    <ClCompile Include="dep\src\SDL\loadso\win32\SDL_sysloadso.c" />
-    <ClCompile Include="dep\src\SDL\video\wincommon\SDL_sysmouse.c" />
-    <ClCompile Include="dep\src\SDL\thread\win32\SDL_sysmutex.c" />
-    <ClCompile Include="dep\src\SDL\thread\win32\SDL_syssem.c" />
-    <ClCompile Include="dep\src\SDL\thread\win32\SDL_systhread.c" />
-    <ClCompile Include="dep\src\SDL\timer\win32\SDL_systimer.c" />
-    <ClCompile Include="dep\src\SDL\video\wincommon\SDL_syswm.c" />
-    <ClCompile Include="dep\src\SDL\thread\SDL_thread.c" />
-    <ClCompile Include="dep\src\SDL\timer\SDL_timer.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_video.c" />
-    <ClCompile Include="dep\src\SDL\audio\SDL_wave.c" />
-    <ClCompile Include="dep\src\SDL\video\wincommon\SDL_wingl.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_yuv.c" />
-    <ClCompile Include="dep\src\SDL\video\SDL_yuv_sw.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="dep\src\SDL\audio\SDL_audio_c.h" />
-    <ClInclude Include="dep\src\SDL\audio\SDL_audiomem.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_blit.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_blit_A.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_cursor_c.h" />
-    <ClInclude Include="dep\src\SDL\audio\windib\SDL_dibaudio.h" />
-    <ClInclude Include="dep\src\SDL\video\windib\SDL_dibevents_c.h" />
-    <ClInclude Include="dep\src\SDL\video\windib\SDL_dibvideo.h" />
-    <ClInclude Include="dep\src\SDL\audio\disk\SDL_diskaudio.h" />
-    <ClInclude Include="dep\src\SDL\audio\dummy\SDL_dummyaudio.h" />
-    <ClInclude Include="dep\src\SDL\audio\windx5\SDL_dx5audio.h" />
-    <ClInclude Include="dep\src\SDL\video\Windx5\SDL_dx5events_c.h" />
-    <ClInclude Include="dep\src\SDL\video\Windx5\SDL_dx5video.h" />
-    <ClInclude Include="dep\src\SDL\video\windx5\SDL_dx5yuv_c.h" />
-    <ClInclude Include="dep\src\SDL\SDL_error_c.h" />
-    <ClInclude Include="dep\src\SDL\events\SDL_events_c.h" />
-    <ClInclude Include="dep\src\SDL\SDL_fatal.h" />
-    <ClInclude Include="dep\src\SDL\joystick\SDL_joystick_c.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_leaks.h" />
-    <ClInclude Include="dep\src\SDL\video\wincommon\SDL_lowvideo.h" />
-    <ClInclude Include="dep\src\SDL\video\dummy\SDL_nullevents_c.h" />
-    <ClInclude Include="dep\src\SDL\video\dummy\SDL_nullmouse_c.h" />
-    <ClInclude Include="dep\src\SDL\video\dummy\SDL_nullvideo.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_pixels_c.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_RLEaccel_c.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_stretch_c.h" />
-    <ClInclude Include="dep\src\SDL\audio\SDL_sysaudio.h" />
-    <ClInclude Include="dep\src\SDL\cdrom\SDL_syscdrom.h" />
-    <ClInclude Include="dep\src\SDL\events\SDL_sysevents.h" />
-    <ClInclude Include="dep\src\SDL\joystick\SDL_sysjoystick.h" />
-    <ClInclude Include="dep\src\SDL\video\wincommon\SDL_sysmouse_c.h" />
-    <ClInclude Include="dep\src\SDL\thread\SDL_systhread.h" />
-    <ClInclude Include="dep\src\SDL\thread\win32\SDL_systhread_c.h" />
-    <ClInclude Include="dep\src\SDL\timer\SDL_systimer.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_sysvideo.h" />
-    <ClInclude Include="dep\src\SDL\video\wincommon\SDL_syswm_c.h" />
-    <ClInclude Include="dep\src\SDL\thread\SDL_thread_c.h" />
-    <ClInclude Include="dep\src\SDL\timer\SDL_timer_c.h" />
-    <ClInclude Include="dep\src\SDL\video\windib\SDL_vkeys.h" />
-    <ClInclude Include="dep\src\SDL\audio\SDL_wave.h" />
-    <ClInclude Include="dep\src\SDL\video\wincommon\SDL_wingl_c.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_yuv_sw_c.h" />
-    <ClInclude Include="dep\src\SDL\video\SDL_yuvfuncs.h" />
-    <ClInclude Include="dep\src\SDL\video\wincommon\Wmmsg.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

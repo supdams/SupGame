@@ -148,6 +148,9 @@
     <ClCompile Include="Client\Gui\SceneLogin.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Client\fonction.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client\Cli.h">
@@ -276,15 +279,13 @@
     <ClInclude Include="Client\Gui\SceneData.h">
       <Filter>Source Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Client\fonction.h">
+      <Filter>Source Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuildStep Include="Client\DefScript\DefScript.h">
       <Filter>Source Files\DefScript</Filter>
     </CustomBuildStep>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Client\Pseu1.ico">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

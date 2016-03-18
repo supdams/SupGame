@@ -702,7 +702,7 @@ enum Emote
     EMOTE_STATE_SPELLEFFECT_HOLD       = 422
 };
 
-enum Anim
+enum Animation
 {
     ANIM_STAND                     = 0x0,
     ANIM_DEATH                     = 0x1,

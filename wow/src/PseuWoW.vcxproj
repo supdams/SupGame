@@ -83,7 +83,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>odbc32.lib;odbccp32.lib;WS2_32.LIB;libeay32MT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>odbc32.lib;odbccp32.lib;WS2_32.LIB;libeay32MT.lib;SDLmain.lib;SDL.lib;SDL_image.lib;SDL_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -107,11 +107,23 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0000</Culture>
     </ResourceCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>..\src\copyfiles.cmd</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>copie new dll</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dep/include/SDL;shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -152,7 +164,7 @@
       <Optimization>Full</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>dep/include/SDL;shared;Client;Client/World;Client/Realm;dep/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_IRR_STATIC_LIB_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -196,6 +208,7 @@
     <ClCompile Include="Client\Cli.cpp" />
     <ClCompile Include="Client\ControlSocket.cpp" />
     <ClCompile Include="Client\DefScriptInterface.cpp" />
+    <ClCompile Include="Client\fonction.cpp" />
     <ClCompile Include="Client\main.cpp" />
     <ClCompile Include="Client\MemoryDataHolder.cpp" />
     <ClCompile Include="Client\PseuWoW.cpp" />
@@ -240,6 +253,7 @@
     <ClInclude Include="Client\Cli.h" />
     <ClInclude Include="Client\ControlSocket.h" />
     <ClInclude Include="Client\DefScriptInterfaceInclude.h" />
+    <ClInclude Include="Client\fonction.h" />
     <ClInclude Include="Client\HelperDefs.h" />
     <ClInclude Include="Client\main.h" />
     <ClInclude Include="Client\MemoryDataHolder.h" />
@@ -294,9 +308,6 @@
       <Project>{262199e8-eedf-4700-a1d1-e9cc901cf480}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Client\Pseu1.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

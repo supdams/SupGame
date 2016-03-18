@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "RealmSession.h"
 
+#include "fonction.h"
 
 enum GuiElementID
 {
@@ -19,7 +20,29 @@ enum GuiElementID
 //positions of each gui element based on the current screensize ( gotten with driver->getScreenSize(); )
 
 SceneLogin::SceneLogin(PseuGUI *gui) : Scene(gui)
-{/*
+{
+	logdetail("@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	logdetail("SceneLogin::SceneLogin(PseuGUI *gui) : Scene(gui)");
+	logdetail("@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	
+	SDL_WM_SetCaption("SceneLogin", NULL);
+
+
+    SDL_Surface *ecran = NULL;
+    ecran = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE);
+
+	SDL_Color Couleur;
+	Couleur.r = 255;
+	Couleur.g = 0;
+	Couleur.b = 0;
+	TTF_Font *font = loadFont("./font/Kraash_Black.ttf", 48);
+
+	drawString("Valider", 350, 560, font,Couleur,ecran);
+ 
+    SDL_Flip(ecran);
+
+
+	/*
     textdb = instance->dbmgr.GetDB("gui_login_text");
     msgbox_textid = 0;
     eventrecv = new GUIEventReceiver();
@@ -45,6 +68,13 @@ SceneLogin::SceneLogin(PseuGUI *gui) : Scene(gui)
     guienv->addButton(rect<s32>(10, scrn.Height-40, 120, scrn.Height-10), 0, 8, GetStringFromDB(ISCENE_LOGIN_BUTTONS,DSCENE_LOGIN_BUTTON_SITE).c_str());
     guienv->addButton(rect<s32>((scrn.Width*0.5f)-60, (scrn.Height*0.3f)+100, (scrn.Width*0.5f)+60, (scrn.Height*0.3f)+130), 0, 16, GetStringFromDB(ISCENE_LOGIN_BUTTONS,DSCENE_LOGIN_BUTTON_LOGIN).c_str());
     msgbox = guienv->addStaticText(GetStringFromDB(ISCENE_LOGIN_CONN_STATUS,DSCENE_LOGIN_NOT_CONNECTED).c_str(),rect<s32>((scrn.Width*0.5f)-90, (scrn.Height*0.3f)+150, (scrn.Width*0.5f)+90, (scrn.Height*0.3f)+180),true,true);
+	*/
+
+
+
+
+
+
 	/*
     if(soundengine)
     {
@@ -58,8 +88,9 @@ SceneLogin::SceneLogin(PseuGUI *gui) : Scene(gui)
 //    popup = NULL;
 }
 /*
-void SceneLogin::OnUpdate(s32 timepassed)
+void SceneLogin::OnUpdate(uint32 timepassed)
 {
+	
     if(msgbox_textid != scenedata[ISCENE_LOGIN_CONN_STATUS])
     {
         msgbox_textid = scenedata[ISCENE_LOGIN_CONN_STATUS];
@@ -110,7 +141,7 @@ void SceneLogin::OnUpdate(s32 timepassed)
     eventrecv->buttons = 0;
 }
 
-*/
+¨*/
 
 void SceneLogin::OnDelete(void)
 {

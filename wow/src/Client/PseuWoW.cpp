@@ -237,6 +237,7 @@ void PseuInstance::Run(void)
 
     if(GetGUI())
     {
+		logdetail("@@@@@@@@@@@@@GetGUI");
         while(!GetGUI()->IsInitialized())
             Sleep(1); // wait until the gui is ready. it will crash otherwise
         logdebug("GUI: switching to startup display...");

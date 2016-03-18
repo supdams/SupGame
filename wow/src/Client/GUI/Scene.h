@@ -18,7 +18,7 @@ public:
     //core::stringw GetStringFromDB(u32 index, u32 entry, SCPDatabase *other_db = NULL);
     inline void SetState(SceneState sc) { _scenestate = sc; }
     inline SceneState GetState(void) { return _scenestate; }
-  //  virtual void OnUpdate(s32);
+    virtual void OnUpdate(uint32);
     virtual void OnManualUpdate(void);
     virtual void OnDraw(void);
     virtual void OnDrawBegin(void);
@@ -43,15 +43,13 @@ class SceneGuiStart : public Scene
 public:
     SceneGuiStart(PseuGUI *gui);
     void OnDelete(void);
-
-
 };
 
 class SceneLogin : public Scene
 {
+	
 public:
     SceneLogin(PseuGUI *gui);
-
     void OnDelete(void);
 
 private:
@@ -64,7 +62,7 @@ class CharSelectGUIEventReceiver;
 
 
 
-
+/*
 
 class ShTlTerrainSceneNode;
 class MCameraFPS;
@@ -74,7 +72,7 @@ class MapMgr;
 class WorldSession;
 class MovementMgr;
 class MyCharacter;
-/*
+
 class SceneWorld : public Scene
 {
     struct SceneNodeWithGridPos

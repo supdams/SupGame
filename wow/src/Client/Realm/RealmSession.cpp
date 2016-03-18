@@ -333,6 +333,7 @@ void RealmSession::SendLogonChallenge(void)
     }
    // if(PseuGUI *gui = GetInstance()->GetGUI())
  //       gui->SetSceneData(ISCENE_LOGIN_CONN_STATUS, DSCENE_LOGIN_LOGGING_IN);
+	
 	log("@@@@ envoi les premier info login mdp.");
     std::string acc = stringToUpper(_accname);
     ByteBuffer packet;
