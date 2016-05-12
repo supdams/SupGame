@@ -56,7 +56,7 @@ void World::Update(void)
         _lastx = _x;
         _lasty = _y;
     }*/
-	logdebug("?????????????? update.");
+
 }
 
 void World::UpdatePos(float x, float y, uint32 m)

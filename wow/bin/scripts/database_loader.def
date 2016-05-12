@@ -21,7 +21,9 @@ LoadDB race
 LoadDB class
 LoadDB gender
 LoadDB language
+LoadDB emote
 LoadDB map
+LoadDB loadingscreens
 LoadDB zone
 LoadDB creaturedisplayinfo
 LoadDB creaturemodeldata

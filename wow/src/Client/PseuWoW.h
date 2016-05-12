@@ -29,6 +29,14 @@ enum InstanceConditions
     COND_MAX
 };
 
+enum Client
+{
+    CLIENT_UNKNOWN,
+    CLIENT_CLASSIC_WOW,
+    CLIENT_TBC,
+    CLIENT_WOTLK,
+    CLIENT_CATA
+};
 
 class PseuInstanceConf
 {
@@ -47,6 +55,7 @@ class PseuInstanceConf
     uint32 reconnect;
     uint16 realmport;
     uint16 worldport;
+    uint8 client;
     uint8 clientversion[3];
     std::string clientversion_string;
     uint16 clientbuild;
@@ -71,6 +80,7 @@ class PseuInstanceConf
     uint8 dumpPackets;
     bool softquit;
     uint8 dataLoaderThreads;
+    bool useMPQ;
 
     // gui related
     bool enablegui;

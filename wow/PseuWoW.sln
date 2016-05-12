@@ -11,23 +11,32 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Release noconsole|Win32 = Release noconsole|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Debug|Win32.ActiveCfg = Debug|Win32
 		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Debug|Win32.Build.0 = Debug|Win32
+		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Release noconsole|Win32.ActiveCfg = Release noconsole|Win32
+		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Release noconsole|Win32.Build.0 = Release noconsole|Win32
 		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Release|Win32.ActiveCfg = Release|Win32
 		{EFFE60F4-DA39-41E8-9E53-E462000A2D91}.Release|Win32.Build.0 = Release|Win32
 		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Debug|Win32.Build.0 = Debug|Win32
+		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Release noconsole|Win32.ActiveCfg = Release noconsole|Win32
+		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Release noconsole|Win32.Build.0 = Release noconsole|Win32
 		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Release|Win32.ActiveCfg = Release|Win32
 		{8F1DEA42-6A5B-4B62-839D-C141A7BFACF2}.Release|Win32.Build.0 = Release|Win32
 		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Debug|Win32.ActiveCfg = Debug|Win32
 		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Debug|Win32.Build.0 = Debug|Win32
+		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Release noconsole|Win32.ActiveCfg = Release noconsole|Win32
+		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Release noconsole|Win32.Build.0 = Release noconsole|Win32
 		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Release|Win32.ActiveCfg = Release|Win32
 		{262199E8-EEDF-4700-A1D1-E9CC901CF480}.Release|Win32.Build.0 = Release|Win32
 		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Debug|Win32.ActiveCfg = Debug|Win32
 		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Debug|Win32.Build.0 = Debug|Win32
+		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Release noconsole|Win32.ActiveCfg = Release noconsole|Win32
+		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Release noconsole|Win32.Build.0 = Release noconsole|Win32
 		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Release|Win32.ActiveCfg = Release|Win32
 		{F548FC51-24A4-45FF-A381-BEBC39F18270}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

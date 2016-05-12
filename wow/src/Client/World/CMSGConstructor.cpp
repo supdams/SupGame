@@ -43,8 +43,8 @@ void WorldSession::SendQueryPlayerName(uint64 guid)
 
 void WorldSession::SendPing(uint32 ping)
 {
-//    if(!_logged)
-  //      return;
+    if(!_logged)
+        return;
     WorldPacket packet;
     packet << ping;
     packet << GetLagMS();

@@ -8,9 +8,9 @@
 #include "DefScriptInterface.h"
 #include "Auth/BigNumber.h"
 #include "DefScript/DefScript.h"
-#include "RealmSession.h"
-#include "WorldSession.h"
-#include "CacheHandler.h"
+#include "Realm/RealmSession.h"
+#include "World/WorldSession.h"
+#include "World/CacheHandler.h"
 #include "GUI/PseuGUI.h"
 #include "RemoteController.h"
 #include "Cli.h"
@@ -84,7 +84,8 @@ PseuInstance::~PseuInstance()
         _gui->Shutdown();
     logdebug("Waiting for GUI to quit...");
     while(_gui)
-        Sleep(1);
+		SDL_Delay(1);
+       // Sleep(1);
 
     if(_guithread)
         _guithread->wait();
@@ -237,9 +238,9 @@ void PseuInstance::Run(void)
 
     if(GetGUI())
     {
-		logdetail("@@@@@@@@@@@@@GetGUI");
         while(!GetGUI()->IsInitialized())
-            Sleep(1); // wait until the gui is ready. it will crash otherwise
+			SDL_Delay(1);
+          //  Sleep(1); // wait until the gui is ready. it will crash otherwise
         logdebug("GUI: switching to startup display...");
         GetGUI()->SetSceneState(SCENESTATE_GUISTART);
     }
@@ -351,11 +352,11 @@ void PseuInstance::Update()
         {
             logdev("Skipping reconnect, acc name or password not set");
         }
-        else
+        else 
         {   // everything fine, we have all data
             logdetail("Waiting %u ms before reconnecting.",GetConf()->reconnect);
-            for(uint32 t = 0; t < GetConf()->reconnect && !this->Stopped(); t+=100) Sleep(100);
-            this->Sleep(1000); // wait 1 sec before reconnecting
+            for(uint32 t = 0; t < GetConf()->reconnect && !this->Stopped(); t+=100) SDL_Delay(100);
+            SDL_Delay(1000); // wait 1 sec before reconnecting
             CreateRealmSession();
         }
     }
@@ -366,7 +367,7 @@ void PseuInstance::Update()
             logdetail("Disconnected, switching GUI back to Loginscreen.");
             _gui->SetSceneState(SCENESTATE_LOGINSCREEN);
             while(_gui && _gui->GetSceneState() != SCENESTATE_LOGINSCREEN) // .. and wait until scenestate is set
-                Sleep(1);
+                SDL_Delay(1);
         }
     }
 
@@ -494,8 +495,7 @@ void PseuInstanceConf::ApplyFromVarSet(VarSet &v)
     exitonerror=(bool)atoi(v.Get("EXITONERROR").c_str());
     reconnect=atoi(v.Get("RECONNECT").c_str());
     realmport=atoi(v.Get("REALMPORT").c_str());
-    clientversion_string=v.Get("CLIENTVERSION");
-    clientbuild=atoi(v.Get("CLIENTBUILD").c_str());
+    client=atoi(v.Get("CLIENT").c_str());
     clientlang=v.Get("CLIENTLANGUAGE");
     realmname=v.Get("REALMNAME");
     charname=v.Get("CHARNAME");
@@ -517,25 +517,51 @@ void PseuInstanceConf::ApplyFromVarSet(VarSet &v)
     dumpPackets=(uint8)atoi(v.Get("DUMPPACKETS").c_str());
     softquit=(bool)atoi(v.Get("SOFTQUIT").c_str());
     dataLoaderThreads=atoi(v.Get("DATALOADERTHREADS").c_str());
+    useMPQ=(bool)atoi(v.Get("USEMPQ").c_str());
+
+    switch(client)
+    {
+      case CLIENT_CLASSIC_WOW:
+      {
+        clientbuild = 6005;
+        clientversion_string="1.12.2";
+        break;
+      }
+      case CLIENT_TBC:
+      {
+        clientbuild = 8606;
+        clientversion_string="2.4.3";
+        break;
+      }
+      case CLIENT_WOTLK:
+      {
+        clientbuild = 9947;
+        clientversion_string="3.1.3";
+        break;
+      }
+      case CLIENT_CATA:
+      default:
+      {
+        logerror("Unknown client - check conf");
+      }
+    }
 
     // clientversion is a bit more complicated to add
+    std::string opt=clientversion_string + ".";
+    std::string num;
+    uint8 p=0;
+    for(uint8 i=0;i<opt.length();i++)
     {
-        std::string opt=clientversion_string + ".";
-        std::string num;
-        uint8 p=0;
-        for(uint8 i=0;i<opt.length();i++)
+        if(!isdigit(opt.at(i)))
         {
-            if(!isdigit(opt.at(i)))
-            {
-                clientversion[p]=(unsigned char)atoi(num.c_str());
-                num.clear();
-                p++;
-                if(p>2)
-                    break;
-                continue;
-            }
-            num+=opt.at(i);
+            clientversion[p]=(unsigned char)atoi(num.c_str());
+            num.clear();
+            p++;
+            if(p>2)
+                break;
+            continue;
         }
+        num+=opt.at(i);
     }
 
     // GUI related

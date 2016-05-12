@@ -55,8 +55,8 @@ void ObjMgr::Remove(uint64 guid, bool del)
         if(!del)
             logdebug("ObjMgr: "I64FMT" '%s' -> depleted.",guid,o->GetName().c_str()); 
         PseuGUI *gui = _instance->GetGUI();
-      //   if(gui)
-      //       gui->NotifyObjectDeletion(guid); // we have a gui, which must delete linked DrawObject
+        if(gui)
+            gui->NotifyObjectDeletion(guid); // we have a gui, which must delete linked DrawObject
         if(del)
         {
             _obj.erase(guid); // now delete the obj from the mgr

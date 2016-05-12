@@ -1,4 +1,4 @@
-
+//#define _DEBUG 1
 #include "common.h"
 
 #include "Auth/Sha1.h"
@@ -1716,8 +1716,8 @@ void WorldSession::_HandleCharCreateOpcode(WorldPacket& recvPacket)
         log("Response String: '%s'",response_str.c_str());
     }
 
-  //  if(PseuGUI *gui = GetInstance()->GetGUI())
-    //    gui->SetSceneData(ISCENE_CHARSEL_ERRMSG, response);
+    if(PseuGUI *gui = GetInstance()->GetGUI())
+        gui->SetSceneData(ISCENE_CHARSEL_ERRMSG, response);
 }
 
 void WorldSession::_HandleMonsterMoveOpcode(WorldPacket& recvPacket)

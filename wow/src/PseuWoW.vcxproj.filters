@@ -3,7 +3,7 @@
   <ItemGroup>
     <Filter Include="Source Files">
       <UniqueIdentifier>{af1d9bf7-8efe-4e42-9762-8f0ac3036d37}</UniqueIdentifier>
-      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+      <Extensions>cpp;c;cxx;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Source Files\DefScript">
       <UniqueIdentifier>{9771b785-c9bf-478a-b760-4ff32f36f336}</UniqueIdentifier>
@@ -11,40 +11,22 @@
     <Filter Include="Source Files\World">
       <UniqueIdentifier>{c56cd67c-0165-4f4e-963b-189f0dcc0e31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\World\MapSystem">
-      <UniqueIdentifier>{3e7e16a6-8ba6-46a2-9ccd-ffc99c06c947}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Realm">
       <UniqueIdentifier>{6cf94dca-1c4a-49c9-bbd4-70f80753f133}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{5b5882f2-8108-48f3-93e9-c652d7ffb70f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GUI\sdl">
+      <UniqueIdentifier>{45cf9b74-83d3-44de-9df1-9eb6c8d0c5a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client\Cli.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Client\Realm\RealmSession.cpp">
+      <Filter>Source Files\Realm</Filter>
     </ClCompile>
-    <ClCompile Include="Client\ControlSocket.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\DefScriptInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\MemoryDataHolder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\PseuWoW.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\RemoteController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\SCPDatabase.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Client\Realm\RealmSocket.cpp">
+      <Filter>Source Files\Realm</Filter>
     </ClCompile>
     <ClCompile Include="Client\DefScript\DefScript.cpp">
       <Filter>Source Files\DefScript</Filter>
@@ -70,6 +52,39 @@
     <ClCompile Include="Client\DefScript\VarSet.cpp">
       <Filter>Source Files\DefScript</Filter>
     </ClCompile>
+    <ClCompile Include="Client\GUI\PseuGUI.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\Scene.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneCharselection.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneGuiStart.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneLoading.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneLogin.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneWorld.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\sdl\sdl.cpp">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\sdl\textedition.cpp">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\sdl\ttf_secure.cpp">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\GUI\SceneRealselection.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
     <ClCompile Include="Client\World\Bag.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
@@ -92,6 +107,9 @@
       <Filter>Source Files\World</Filter>
     </ClCompile>
     <ClCompile Include="Client\World\Item.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\World\MapMgr.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
     <ClCompile Include="Client\World\MovementMgr.cpp">
@@ -127,58 +145,43 @@
     <ClCompile Include="Client\World\WorldSocket.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
-    <ClCompile Include="Client\World\MapMgr.cpp">
-      <Filter>Source Files\World\MapSystem</Filter>
+    <ClCompile Include="Client\Cli.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client\Realm\RealmSession.cpp">
-      <Filter>Source Files\Realm</Filter>
+    <ClCompile Include="Client\ControlSocket.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client\Realm\RealmSocket.cpp">
-      <Filter>Source Files\Realm</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\Gui\PseuGUI.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\Gui\Scene.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\Gui\SceneGuiStart.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Client\Gui\SceneLogin.cpp">
-      <Filter>Source Files\GUI</Filter>
+    <ClCompile Include="Client\DefScriptInterface.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Client\fonction.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\MemoryDataHolder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\PseuWoW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\RemoteController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Client\SCPDatabase.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Client\Cli.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Client\Realm\RealmSession.h">
+      <Filter>Source Files\Realm</Filter>
     </ClInclude>
-    <ClInclude Include="Client\ControlSocket.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Client\Realm\RealmSocket.h">
+      <Filter>Source Files\Realm</Filter>
     </ClInclude>
-    <ClInclude Include="Client\DefScriptInterfaceInclude.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\HelperDefs.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\main.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\MemoryDataHolder.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\PseuWoW.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\RemoteController.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\SCPDatabase.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Client\DefScript\DefScript.h">
+      <Filter>Source Files\DefScript</Filter>
     </ClInclude>
     <ClInclude Include="Client\DefScript\DefScriptDefines.h">
       <Filter>Source Files\DefScript</Filter>
@@ -194,6 +197,27 @@
     </ClInclude>
     <ClInclude Include="Client\DefScript\VarSet.h">
       <Filter>Source Files\DefScript</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\PseuGUI.h">
+      <Filter>Source Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\Scene.h">
+      <Filter>Source Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\SceneData.h">
+      <Filter>Source Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\sdl\sdl.h">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\sdl\textedition.h">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\sdl\ttf_secure.h">
+      <Filter>Source Files\GUI\sdl</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\GUI\GUIEventReceiver.h">
+      <Filter>Source Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Client\World\Bag.h">
       <Filter>Source Files\World</Filter>
@@ -214,6 +238,9 @@
       <Filter>Source Files\World</Filter>
     </ClInclude>
     <ClInclude Include="Client\World\Item.h">
+      <Filter>Source Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\World\MapMgr.h">
       <Filter>Source Files\World</Filter>
     </ClInclude>
     <ClInclude Include="Client\World\MovementMgr.h">
@@ -261,31 +288,38 @@
     <ClInclude Include="Client\World\WorldSocket.h">
       <Filter>Source Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="Client\World\MapMgr.h">
-      <Filter>Source Files\World\MapSystem</Filter>
+    <ClInclude Include="Client\Cli.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Client\Realm\RealmSession.h">
-      <Filter>Source Files\Realm</Filter>
+    <ClInclude Include="Client\ControlSocket.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Client\Realm\RealmSocket.h">
-      <Filter>Source Files\Realm</Filter>
+    <ClInclude Include="Client\DefScriptInterface.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Client\Gui\PseuGUI.h">
-      <Filter>Source Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\Gui\Scene.h">
-      <Filter>Source Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Client\Gui\SceneData.h">
-      <Filter>Source Files\GUI</Filter>
+    <ClInclude Include="Client\DefScriptInterfaceInclude.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Client\fonction.h">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuildStep Include="Client\DefScript\DefScript.h">
-      <Filter>Source Files\DefScript</Filter>
-    </CustomBuildStep>
+    <ClInclude Include="Client\HelperDefs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\main.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\MemoryDataHolder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\PseuWoW.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\RemoteController.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Client\SCPDatabase.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

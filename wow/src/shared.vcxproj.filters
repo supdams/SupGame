@@ -1,72 +1,170 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="shared\Auth\SARC4.cpp" />
-    <ClCompile Include="shared\log.cpp" />
-    <ClCompile Include="shared\ProgressBar.cpp" />
-    <ClCompile Include="shared\tools.cpp" />
-    <ClCompile Include="shared\ZCompressor.cpp" />
-    <ClCompile Include="shared\Network\Base64.cpp" />
-    <ClCompile Include="shared\Network\CircularBuffer.cpp" />
-    <ClCompile Include="shared\Network\Parse.cpp" />
-    <ClCompile Include="shared\Network\PoolSocket.cpp" />
-    <ClCompile Include="shared\Network\ResolvServer.cpp" />
-    <ClCompile Include="shared\Network\ResolvSocket.cpp" />
-    <ClCompile Include="shared\Network\Socket.cpp" />
-    <ClCompile Include="shared\Network\socket_include.cpp" />
-    <ClCompile Include="shared\Network\SocketHandler.cpp" />
-    <ClCompile Include="shared\Network\SocketThread.cpp" />
-    <ClCompile Include="shared\Network\StdoutLog.cpp" />
-    <ClCompile Include="shared\Network\TcpSocket.cpp" />
-    <ClCompile Include="shared\Network\Thread.cpp" />
-    <ClCompile Include="shared\Network\UdpSocket.cpp" />
-    <ClCompile Include="shared\Network\Utility.cpp" />
-    <ClCompile Include="shared\ADTFile.cpp" />
-    <ClCompile Include="shared\MapTile.cpp" />
-    <ClCompile Include="shared\WDTFile.cpp" />
-    <ClCompile Include="shared\Auth\AuthCrypt.cpp" />
-    <ClCompile Include="shared\Auth\BigNumber.cpp" />
-    <ClCompile Include="shared\Auth\Hmac.cpp" />
-    <ClCompile Include="shared\Auth\md5.c" />
-    <ClCompile Include="shared\Auth\Sha1.cpp" />
+    <Filter Include="Auth">
+      <UniqueIdentifier>{565850cf-1421-412a-9d90-dfee0cfe2297}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{ce79b25c-6e0e-4347-96b1-0c0aeb31be38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shared\Auth\SARC4.h" />
-    <ClInclude Include="shared\ByteBuffer.h" />
-    <ClInclude Include="shared\common.h" />
-    <ClInclude Include="shared\DebugStuff.h" />
-    <ClInclude Include="shared\log.h" />
-    <ClInclude Include="shared\ProgressBar.h" />
-    <ClInclude Include="shared\SysDefs.h" />
-    <ClInclude Include="shared\tools.h" />
-    <ClInclude Include="shared\Widen.h" />
+    <ClCompile Include="shared\Auth\AuthCrypt.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\BigNumber.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\Hmac.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\md5.c">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\SARC4.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Auth\Sha1.cpp">
+      <Filter>Auth</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\Base64.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\CircularBuffer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\Parse.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\PoolSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\ResolvServer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\ResolvSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\Socket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\socket_include.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\SocketHandler.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\SocketThread.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\StdoutLog.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\TcpSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\Thread.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\UdpSocket.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\Network\Utility.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="shared\ZCompressor.cpp" />
+    <ClCompile Include="shared\WDTFile.cpp" />
+    <ClCompile Include="shared\tools.cpp" />
+    <ClCompile Include="shared\ProgressBar.cpp" />
+    <ClCompile Include="shared\MapTile.cpp" />
+    <ClCompile Include="shared\log.cpp" />
+    <ClCompile Include="shared\ADTFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="shared\Auth\AuthCrypt.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\BigNumber.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\Hmac.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\md5.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\MD5Hash.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\SARC4.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Auth\Sha1.h">
+      <Filter>Auth</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\Base64.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\CircularBuffer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\ListenSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\Parse.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\PoolSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\ResolvServer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\ResolvSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\Socket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\socket_include.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\SocketHandler.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\SocketThread.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\StdLog.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\StdoutLog.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\TcpSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\Thread.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\UdpSocket.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="shared\Network\Utility.h">
+      <Filter>Network</Filter>
+    </ClInclude>
     <ClInclude Include="shared\ZCompressor.h" />
-    <ClInclude Include="shared\Network\Base64.h" />
-    <ClInclude Include="shared\Network\CircularBuffer.h" />
-    <ClInclude Include="shared\Network\ListenSocket.h" />
-    <ClInclude Include="shared\Network\Parse.h" />
-    <ClInclude Include="shared\Network\PoolSocket.h" />
-    <ClInclude Include="shared\Network\ResolvServer.h" />
-    <ClInclude Include="shared\Network\ResolvSocket.h" />
-    <ClInclude Include="shared\Network\Socket.h" />
-    <ClInclude Include="shared\Network\socket_include.h" />
-    <ClInclude Include="shared\Network\SocketHandler.h" />
-    <ClInclude Include="shared\Network\SocketThread.h" />
-    <ClInclude Include="shared\Network\StdLog.h" />
-    <ClInclude Include="shared\Network\StdoutLog.h" />
-    <ClInclude Include="shared\Network\TcpSocket.h" />
-    <ClInclude Include="shared\Network\Thread.h" />
-    <ClInclude Include="shared\Network\UdpSocket.h" />
-    <ClInclude Include="shared\Network\Utility.h" />
-    <ClInclude Include="shared\ADTFile.h" />
-    <ClInclude Include="shared\ADTFileStructs.h" />
-    <ClInclude Include="shared\MapTile.h" />
+    <ClInclude Include="shared\Widen.h" />
     <ClInclude Include="shared\WDTFile.h" />
-    <ClInclude Include="shared\Auth\AuthCrypt.h" />
-    <ClInclude Include="shared\Auth\BigNumber.h" />
-    <ClInclude Include="shared\Auth\Hmac.h" />
-    <ClInclude Include="shared\Auth\md5.h" />
-    <ClInclude Include="shared\Auth\MD5Hash.h" />
-    <ClInclude Include="shared\Auth\Sha1.h" />
+    <ClInclude Include="shared\tools.h" />
+    <ClInclude Include="shared\SysDefs.h" />
+    <ClInclude Include="shared\ProgressBar.h" />
+    <ClInclude Include="shared\MapTile.h" />
+    <ClInclude Include="shared\log.h" />
+    <ClInclude Include="shared\DebugStuff.h" />
+    <ClInclude Include="shared\common.h" />
+    <ClInclude Include="shared\ByteBuffer.h" />
+    <ClInclude Include="shared\ADTFileStructs.h" />
+    <ClInclude Include="shared\ADTFile.h" />
   </ItemGroup>
 </Project>
